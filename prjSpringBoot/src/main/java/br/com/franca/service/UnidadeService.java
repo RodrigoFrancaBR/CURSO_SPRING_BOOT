@@ -1,11 +1,12 @@
 package br.com.franca.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import br.com.franca.domain.Unidade;
+import br.com.franca.domain.enun.Status;
+import br.com.franca.exception.ResourceNotFoundException;
 import br.com.franca.repository.UnidadeRepository;
 
 @Service
@@ -17,30 +18,33 @@ public class UnidadeService {
 	}
 
 	public List<Unidade> findAll() {
-		return this.repository.findAll();
+		return repository.findAll();
 	}
 
-	public Optional<Unidade> findById(Long id) {
-		return this.repository.findById(id);
+	public Unidade findById(Long id) {
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 	}
 
 	public Unidade save(Unidade unidade) {
-		return this.repository.save(unidade);
+		return repository.save(unidade);
 	}
 
-	public Optional<Unidade> update(Unidade unidade) {
-		return findById(unidade.getId()).map(u -> {
-			u.setNome(unidade.getNome());
-			u.setEndereco(unidade.getEndereco());
-			u.setStatus(unidade.getStatus());
-			return this.repository.save(u);
-		});
+	public Unidade update(Unidade unidade) {
+		Unidade unidadeEncontrada = findById(unidade.getId());
+		Unidade unidadeAtualizada = getUpdateEntity(unidade, unidadeEncontrada);
+		return repository.save(unidadeAtualizada);
 	}
 
-	public Optional<Unidade> delete(Long id) {
-		return this.repository.findById(id).map(u -> {
-			this.repository.delete(u);
-			return u;
-		});
+	public void delete(Long id) {
+		Unidade unidadeEncontrada = findById(id);
+		unidadeEncontrada.setStatus(Status.DESATIVADA);
+		repository.delete(unidadeEncontrada);
+	}
+
+	private Unidade getUpdateEntity(Unidade unidade, Unidade unidadeEncontrada) {
+		unidadeEncontrada.setNome(unidade.getNome());
+		unidadeEncontrada.setEndereco(unidade.getEndereco());
+		unidadeEncontrada.setStatus(unidade.getStatus());
+		return unidadeEncontrada;
 	}
 }

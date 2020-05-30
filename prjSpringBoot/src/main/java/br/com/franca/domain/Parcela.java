@@ -52,7 +52,7 @@ public class Parcela implements Serializable {
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "sit_parc")
-	private SituacaoParcela situacao;
+	private SituacaoParcela situacaoParcela;
 
 	@Transient
 	private BigDecimal valorResidualParcelaCurso;
@@ -128,12 +128,12 @@ public class Parcela implements Serializable {
 		this.valorTotalParcela = valorTotalParcela;
 	}
 
-	public SituacaoParcela getSituacao() {
-		return situacao;
+	public SituacaoParcela getSituacaoParcela() {
+		return situacaoParcela;
 	}
 
-	public void setSituacao(SituacaoParcela situacao) {
-		this.situacao = situacao;
+	public void setSituacaoParcela(SituacaoParcela situacaoParcela) {
+		this.situacaoParcela = situacaoParcela;
 	}
 
 	public BigDecimal getValorResidualParcelaCurso() {
@@ -182,7 +182,8 @@ public class Parcela implements Serializable {
 		return "Parcela [id=" + id + ", dataVencimento=" + dataVencimento + ", valorPago=" + valorPago
 				+ ", dataPagamento=" + dataPagamento + ", valorParcelaCurso=" + valorParcelaCurso
 				+ ", valorParcelaMaterial=" + valorParcelaMaterial + ", valorTotalParcela=" + valorTotalParcela
-				+ ", situacao=" + situacao + ", valorResidualParcelaCurso=" + valorResidualParcelaCurso
+				+ ", situacaoParcela=" + situacaoParcela + ", valorResidualParcelaCurso=" + valorResidualParcelaCurso
 				+ ", valorResidualParcelaMaterial=" + valorResidualParcelaMaterial + ", contrato=" + contrato + "]";
 	}
+
 }

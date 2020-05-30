@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.franca.domain.enun.SituacaoParcela;
+
 public class CursoMaterialAvista extends CondicaoDeContrato {
 
 	@Override
-	public List<Parcela> calculaParcelas(Contrato contrato) {
+	public List<Parcela> calcularParcelas(Contrato contrato) {
 
 		Parcela parcela = new Parcela();
-		List<Parcela> parcelas = new ArrayList<Parcela>();
+
+		List <Parcela> parcelas = new ArrayList<Parcela>();
 
 		parcela.setDataVencimento(Calendar.getInstance());
 
@@ -32,14 +35,11 @@ public class CursoMaterialAvista extends CondicaoDeContrato {
 
 		parcela.setDataPagamento(Calendar.getInstance());
 
-//		parcela.setSituacao(SituacaoParcela.PAGO);
+		parcela.setSituacaoParcela(SituacaoParcela.PAGO);
 
 		parcela.setContrato(contrato);
 
 		parcelas.add(parcela);
-
 		return parcelas;
-
 	}
-
 }

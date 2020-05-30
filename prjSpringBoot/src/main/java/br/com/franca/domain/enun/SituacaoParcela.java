@@ -13,12 +13,7 @@ public enum SituacaoParcela {
 		this.chave = chave;
 		this.valor = valor;
 	}
-
-	/**
-	 * @param Alguma
-	 *            chave v�lida 0,1,2,3 etc..
-	 * @return Uma Situa��o ou null caso n�o encontre uma situa��o existente
-	 */
+	
 	public SituacaoParcela getSituacao(int chave) {
 		return Arrays.asList(SituacaoParcela.values()).parallelStream().filter(e -> e.getChave() == chave).findFirst()
 				.orElse(SituacaoParcela.INVALIDA);

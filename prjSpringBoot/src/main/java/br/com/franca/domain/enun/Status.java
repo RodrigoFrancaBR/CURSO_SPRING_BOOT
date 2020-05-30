@@ -15,11 +15,6 @@ public enum Status {
 		this.valor = valor;
 	}
 
-	/**
-	 * @param Alguma
-	 *            chave v�lida 0,1,2,3 etc..
-	 * @return Um Status ou null caso n�o encontre um status existente
-	 */
 	public static Status getStatus(int chave) {
 		return Arrays.asList(Status.values()).parallelStream().filter(e -> e.getChave() == chave).findFirst()
 				.orElse(Status.INVALIDA);

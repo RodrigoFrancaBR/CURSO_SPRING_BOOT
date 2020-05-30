@@ -3,24 +3,28 @@ package br.com.franca.domain;
 import java.util.List;
 
 public abstract class CondicaoDeContrato {
+	public abstract List<Parcela> calcularParcelas(Contrato contrato);
 
-	public final static CondicaoDeContrato getCondicaoContrato(Integer qtdParcelasCurso, Integer qtdParcelasMaterial) {
-		CondicaoDeContrato contrato = null;
+	public static List<Parcela> getParcelas(Contrato contrato) {
+		List<Parcela> parcelas = null;
 
-		if (qtdParcelasCurso == 1 && qtdParcelasMaterial == 1)
-			contrato = new CursoMaterialAvista();
+		if (contrato.getQtdParcelasCurso() == 1 && contrato.getQtdParcelasMaterial() == 1) {
+			parcelas = new CursoMaterialAvista().calcularParcelas(contrato);
+		}
 
-		if (qtdParcelasCurso == 1 && qtdParcelasMaterial >= 2)
-			contrato = new CursoAvistaMaterialParcelado();
+		if (contrato.getQtdParcelasCurso() == 1 && contrato.getQtdParcelasMaterial() >= 2) {
+			parcelas = new CursoAvistaMaterialParcelado().calcularParcelas(contrato);
+		}
 
-		if (qtdParcelasCurso >= 2 && qtdParcelasMaterial == 1)
-			contrato = new CursoParceladoMaterialAvista();
+		if (contrato.getQtdParcelasCurso() >= 2 && contrato.getQtdParcelasMaterial() == 1) {
+			parcelas = new CursoParceladoMaterialAvista().calcularParcelas(contrato);
+		}
 
-		if (qtdParcelasCurso >= 2 && qtdParcelasMaterial >= 2)
-			contrato = new CursoMaterialParcelado();
+		if (contrato.getQtdParcelasCurso() >= 2 && contrato.getQtdParcelasMaterial() >= 2) {
+			parcelas = new CursoMaterialParcelado().calcularParcelas(contrato);
+		}
 
-		return contrato;
+		return parcelas;
 	}
 
-	public abstract List<Parcela> calculaParcelas(Contrato contrato);
 }

@@ -1,0 +1,536 @@
+{
+	"info": {
+		"_postman_id": "7656da3c-f219-4890-9554-9d4fe70d8083",
+		"name": "CURSO_SPRING_BOOT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "unidade",
+			"item": [
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/unidades/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidades",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unidades",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"ATIVA\",\n    \"nome\": \"ABOLIÇÃO\",\n    \"endereco\": \"RUA MACHADO 700\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/unidades",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unidades/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidades",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 5,\n    \"status\": \"ATIVA\",\n    \"nome\": \"MÉIER\",\n    \"endereco\": \"RUA CAROLINA MACHADO 700\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/unidades/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidades",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "turma",
+			"item": [
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/turmas/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turmas",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turmas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turmas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"1002\",\n    \"status\":\"ATIVA\",\n    \"unidade\": {\n        \"id\": 4\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/turmas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turmas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turmas/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turmas",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"nome\": \"2000\",\n    \"status\": \"ATIVA\",\n    \"unidade\": {\n        \"id\": 1,\n        \"nome\": \"ABOLIÇÃO\",\n        \"endereco\": \"RUA MACHADO 5\",\n        \"status\": \"ATIVA\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/turmas/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turmas",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "aluno",
+			"item": [
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 6,\n    \"nome\": \"x\",\n    \"cpf\": \"107.669.277-27\",\n    \"rg\": \"20.524.277-5\",\n    \"ufRg\": \"RJ\",\n    \"orgaoExpedidor\": \"DETRAN\",\n    \"sexo\": \"MASCULINO\",\n    \"dataNascimento\": 494640000000,\n    \"celular\": \"2198488-0409\",\n    \"residencial\": \"213276-8531\",\n    \"email\": \"RFRANCA@GMAIL.COM\",\n    \"cep\": \"21381-050\",\n    \"endereco\": \"QUINTÃO 153\",\n    \"bairro\": \"CASCADURA\",\n    \"cidade\": \"RIO DE JANEIRO\",\n    \"estado\": \"RJ\",\n    \"pai\": \"DARCY\",\n    \"mae\": \"FATIMA\",\n    \"situacao\": \"INATIVO\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/curso/alunos/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curso",
+								"alunos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/alunos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alunos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"RODRIGO FRANÇA COSTA\",\r\n    \"cpf\": \"19988877761\",\r\n    \"rg\": \"998887771\",\r\n    \"ufRg\": \"RJ\",\r\n    \"orgaoExpedidor\": \"DETRAN\",\r\n    \"sexo\": \"MASCULINO\",\r\n    \"dataNascimento\": \"1985-09-03T03:00:00.000+00:00\",\r\n    \"celular\": \"21984880409\",\r\n    \"residencial\": \"2132768531\",\r\n    \"email\": \"RFRANCA@GMAIL.COM\",\r\n    \"cep\": \"21381050\",\r\n    \"endereco\": \"QUINTÃO 153\",\r\n    \"bairro\": \"CASCADURA\",\r\n    \"cidade\": \"RIO DE JANEIRO\",\r\n    \"estado\": \"RJ\",\r\n    \"pai\": \"DARCY\",\r\n    \"mae\": \"FATIMA\",\r\n    \"situacaoAluno\": \"ATIVO\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/alunos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alunos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/alunos/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alunos",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/alunos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alunos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "contrato",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/contratos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contratos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "simular",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"taxaMatricula\": 100,\n    \"valorCurso\": 1000,\n    \"descontoCurso\": 0.1,\n    \"valorMaterial\": 500,\n    \"formaPagamento\": \"DINHEIRO\",\n    \"diaVencimento\": 1,\n    \"matricula\": \"20201071006\",\n    \"dataMatricula\": 1577847600000,\n    \"situacao\": \"ATIVA\",\n    \"qtdParcelasCurso\": 1,\n    \"qtdParcelasMaterial\": 1,\n    \"aluno\": {\n        \"id\": 2,\n        \"nome\": \"RODRIGO\",\n        \"cpf\": \"107.669.177-38\",\n        \"rg\": \"20.524.877-8\",\n        \"ufRg\": \"RJ\",\n        \"orgaoExpedidor\": \"DETRAN\",\n        \"sexo\": \"MASCULINO\",\n        \"dataNascimento\": 494640000000,\n        \"celular\": \"2198488-0409\",\n        \"residencial\": \"213276-8531\",\n        \"email\": \"RFRANCA@GMAIL.COM\",\n        \"cep\": \"21381-050\",\n        \"endereco\": \"QUINTÃO 153\",\n        \"bairro\": \"CASCADURA\",\n        \"cidade\": \"RIO DE JANEIRO\",\n        \"estado\": \"RJ\",\n        \"pai\": \"DARCY\",\n        \"mae\": \"FATIMA\",\n        \"situacao\": \"INATIVO\"\n    },\n    \"turma\": {\n        \"id\": 1,\n        \"nome\": \"1002\",\n        \"status\": \"ATIVA\",\n        \"unidade\": {\n            \"id\": 1,\n            \"nome\": \"CXASCADURA\",\n            \"endereco\": \"RUA QUINTÃO 153\",\n            \"status\": \"ATIVA\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/curso/contratos/simular",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curso",
+								"contratos",
+								"simular"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/contratos/31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contratos",
+								"31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"taxaMatricula\": 100,\n    \"valorCurso\": 1000,\n    \"descontoCurso\": 0.1,\n    \"valorMaterial\": 500,\n    \"formaPagamento\": \"DINHEIRO\",\n    \"diaVencimento\": 1,\n    \"matricula\": \"20201081001\",\n    \"dataMatricula\": 1577847600000,\n    \"situacao\": \"ATIVA\",\n    \"qtdParcelasCurso\": 1,\n    \"qtdParcelasMaterial\": 1,\n    \"aluno\": {\n        \"id\": 7\n    },\n    \"turma\": {\n        \"id\": 1,\n        \"nome\": \"1002\",\n        \"status\": \"ATIVA\",\n        \"unidade\": {\n            \"id\": 1,\n            \"nome\": \"CXASCADURA\",\n            \"endereco\": \"RUA QUINTÃO 153\",\n            \"status\": \"ATIVA\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/contratos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contratos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save_obrigatorios",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n    \"valorCurso\": 986.56,\n    \"valorMaterial\": 325.66,\n    \"qtdParcelasCurso\": 9,\n    \"qtdParcelasMaterial\": 3,\n    \"aluno\": {\n        \"id\": 2\n    },\n    \"turma\": {\n        \"id\": 1,\n        \"unidade\": {\n            \"id\": 1\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/contratos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contratos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

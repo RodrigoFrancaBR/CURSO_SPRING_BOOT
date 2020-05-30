@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.franca.domain.enun.SituacaoParcela;
+
 public class CursoParceladoMaterialAvista extends CondicaoDeContrato {
 
 	@Override
-	public List<Parcela> calculaParcelas(Contrato contrato) {
+	public List<Parcela> calcularParcelas(Contrato contrato) {
+
 		Parcela parcela = new Parcela();
 
 		List<Parcela> parcelas = new ArrayList<Parcela>();
@@ -49,7 +52,7 @@ public class CursoParceladoMaterialAvista extends CondicaoDeContrato {
 
 		parcela.setDataPagamento(Calendar.getInstance());
 
-		// parcela.setSituacao(SituacaoParcela.PAGO);
+		parcela.setSituacaoParcela(SituacaoParcela.PAGO);
 
 		parcelas.add(parcela);
 
@@ -85,7 +88,7 @@ public class CursoParceladoMaterialAvista extends CondicaoDeContrato {
 
 			parcela.setDataPagamento(null);
 
-			// parcela.setSituacao(SituacaoParcela.A_VENCER);
+			parcela.setSituacaoParcela(SituacaoParcela.A_VENCER);
 
 			parcelas.add(parcela);
 		}

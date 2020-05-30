@@ -1,15 +1,17 @@
 package br.com.franca.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import br.com.franca.domain.Turma;
+import br.com.franca.domain.enun.Status;
+import br.com.franca.exception.ResourceNotFoundException;
 import br.com.franca.repository.TurmaRepository;
 
 @Service
 public class TurmaService {
+
 	private TurmaRepository repository;
 
 	public TurmaService(TurmaRepository repository) {
@@ -20,27 +22,30 @@ public class TurmaService {
 		return repository.findAll();
 	}
 
-	public Optional<Turma> findById(Long id) {
-		return repository.findById(id);
+	public Turma findById(Long id) {
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 	}
 
 	public Turma save(Turma turma) {
 		return repository.save(turma);
 	}
 
-	public Optional<Turma> update(Turma turma) {
-		return findById(turma.getId()).map(t -> {
-			t.setNome(turma.getNome());
-			t.setStatus(turma.getStatus());
-			return this.repository.save(t);
-		});
+	public Turma update(Turma turma) {
+		Turma turmaEncontrada = findById(turma.getId());
+		Turma turmaAtualizada = getUpdateEntity(turma, turmaEncontrada);
+		return repository.save(turmaAtualizada);
 	}
 
-	public Optional<Turma> delete(Long id) {
-		return this.repository.findById(id).map(u -> {
-			this.repository.delete(u);
-			return u;
-		});
+	public void delete(Long id) {
+		Turma turmaEncontrada = findById(id);
+		turmaEncontrada.setStatus(Status.DESATIVADA);
+		repository.delete(turmaEncontrada);
+	}
+
+	private Turma getUpdateEntity(Turma turma, Turma turmaEncontrada) {
+		turmaEncontrada.setNome(turma.getNome());		
+		turmaEncontrada.setStatus(turma.getStatus());
+		return turmaEncontrada;
 	}
 
 }
