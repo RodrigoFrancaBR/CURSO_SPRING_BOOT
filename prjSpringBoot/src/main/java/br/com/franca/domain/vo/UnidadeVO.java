@@ -2,8 +2,13 @@ package br.com.franca.domain.vo;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import br.com.franca.domain.enun.Status;
 
+@JsonPropertyOrder({ "nome", "Endereço", "status", "id" })
 public class UnidadeVO implements Serializable {
 
 	public UnidadeVO() {
@@ -17,11 +22,13 @@ public class UnidadeVO implements Serializable {
 	}
 
 	private static final long serialVersionUID = 8049902758244051937L;
-
+	
+	@JsonIgnore
 	private Long id;
 
 	private String nome;
 
+	@JsonProperty("Endereço")
 	private String endereco;
 
 	private Status status;
