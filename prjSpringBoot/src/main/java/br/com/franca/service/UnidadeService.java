@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.com.franca.domain.Unidade;
+import br.com.franca.domain.converter.DozerConverter;
 import br.com.franca.domain.enun.Status;
+import br.com.franca.domain.vo.UnidadeVO;
 import br.com.franca.exception.ResourceNotFoundException;
 import br.com.franca.repository.UnidadeRepository;
 
@@ -17,34 +19,30 @@ public class UnidadeService {
 		this.repository = repository;
 	}
 
-	public List<Unidade> findAll() {
-		return repository.findAll();
+	public List<UnidadeVO> findAll() {
+		return DozerConverter.parseListObjects(repository.findAll(), UnidadeVO.class);		
 	}
 
-	public Unidade findById(Long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+	public UnidadeVO findById(Long id) {
+		Unidade unidade = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		return DozerConverter.parseObject(unidade, UnidadeVO.class);
 	}
 
-	public Unidade save(Unidade unidade) {
-		return repository.save(unidade);
+	public UnidadeVO save(UnidadeVO unidadeVO) {
+		Unidade unidade = DozerConverter.parseObject(unidadeVO, Unidade.class);
+		return DozerConverter.parseObject(repository.save(unidade), UnidadeVO.class);
 	}
 
-	public Unidade update(Unidade unidade) {
-		Unidade unidadeEncontrada = findById(unidade.getId());
-		Unidade unidadeAtualizada = getUpdateEntity(unidade, unidadeEncontrada);
-		return repository.save(unidadeAtualizada);
+	public UnidadeVO update(UnidadeVO unidadeVO) {		
+		findById(unidadeVO.getId());
+		Unidade unidadeAtualizada = repository.save(DozerConverter.parseObject(unidadeVO, Unidade.class));
+		return DozerConverter.parseObject(unidadeAtualizada, UnidadeVO.class);		
 	}
 
 	public void delete(Long id) {
-		Unidade unidadeEncontrada = findById(id);
+		UnidadeVO unidadeEncontrada = findById(id);
 		unidadeEncontrada.setStatus(Status.DESATIVADA);
-		repository.delete(unidadeEncontrada);
-	}
-
-	private Unidade getUpdateEntity(Unidade unidade, Unidade unidadeEncontrada) {
-		unidadeEncontrada.setNome(unidade.getNome());
-		unidadeEncontrada.setEndereco(unidade.getEndereco());
-		unidadeEncontrada.setStatus(unidade.getStatus());
-		return unidadeEncontrada;
+		repository.delete(DozerConverter.parseObject(unidadeEncontrada, Unidade.class));
 	}
 }
