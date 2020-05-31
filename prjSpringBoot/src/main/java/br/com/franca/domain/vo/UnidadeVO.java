@@ -6,6 +6,16 @@ import br.com.franca.domain.enun.Status;
 
 public class UnidadeVO implements Serializable {
 
+	public UnidadeVO() {
+	}
+
+	public UnidadeVO(Long id, String nome, String endereco, Status status) {
+		this.id = id;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.status = status;
+	}
+
 	private static final long serialVersionUID = 8049902758244051937L;
 
 	private Long id;
@@ -76,6 +86,6 @@ public class UnidadeVO implements Serializable {
 	@Override
 	public String toString() {
 		return "UnidadeVO [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", status=" + status + "]";
-	}	
-	
+	}
+
 }

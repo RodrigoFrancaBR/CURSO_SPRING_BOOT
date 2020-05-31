@@ -20,6 +20,16 @@ import br.com.franca.domain.enun.Status;
 		"ENDERECO" }, name = "NOME_ENDERECO_UK"))
 public class Unidade implements Serializable {
 
+	public Unidade() {
+	}
+
+	public Unidade(Long id, String nome, String endereco, Status status) {
+		this.id = id;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.status = status;
+	}
+
 	private static final long serialVersionUID = -8674768342761231956L;
 
 	@Id
