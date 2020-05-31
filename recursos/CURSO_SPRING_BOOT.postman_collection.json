@@ -85,7 +85,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/unidades/5",
+							"raw": "http://localhost:8080/unidades/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -93,7 +93,7 @@
 							"port": "8080",
 							"path": [
 								"unidades",
-								"5"
+								"1"
 							]
 						}
 					},
@@ -302,7 +302,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/alunos/1",
+							"raw": "http://localhost:8080/alunos/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -310,7 +310,7 @@
 							"port": "8080",
 							"path": [
 								"alunos",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -354,7 +354,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/alunos/9",
+							"raw": "http://localhost:8080/alunos/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -362,7 +362,7 @@
 							"port": "8080",
 							"path": [
 								"alunos",
-								"9"
+								"2"
 							]
 						}
 					},
@@ -512,17 +512,18 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \n    \"valorCurso\": 986.56,\n    \"valorMaterial\": 325.66,\n    \"qtdParcelasCurso\": 9,\n    \"qtdParcelasMaterial\": 3,\n    \"aluno\": {\n        \"id\": 2\n    },\n    \"turma\": {\n        \"id\": 1,\n        \"unidade\": {\n            \"id\": 1\n        }\n    }\n}"
+							"raw": "{\n    \n    \"valorCurso\": 986.56,\n    \"valorMaterial\": 325.66,\n    \"qtdParcelasCurso\": 9,\n    \"qtdParcelasMaterial\": 3,\n    \"aluno\": {\n        \"id\": 1\n    },\n    \"turma\": {\n        \"id\": 1,\n        \"unidade\": {\n            \"id\": 1\n        }\n    }\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/contratos",
+							"raw": "http://localhost:8080/contratos/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"contratos"
+								"contratos",
+								""
 							]
 						}
 					},

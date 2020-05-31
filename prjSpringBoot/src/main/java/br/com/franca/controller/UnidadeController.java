@@ -12,37 +12,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.franca.domain.Unidade;
+import br.com.franca.domain.vo.UnidadeVO;
 import br.com.franca.service.UnidadeService;
 
 @RestController
 @RequestMapping("/unidades")
 public class UnidadeController {
-		
+
 	private UnidadeService service;
-	
+
+	@GetMapping("/{id}")
+	public UnidadeVO findById(@PathVariable("id") Long id) {
+		return service.findById(id);
+	}
+
 	public UnidadeController(UnidadeService service) {
 		this.service = service;
 	}
 
 	@GetMapping
-	public List<Unidade> findAll() {
+	public List<UnidadeVO> findAll() {
 		return service.findAll();
 	}
 
-	@GetMapping("/{id}")
-	public Unidade findById(@PathVariable("id") Long id) {
-		return service.findById(id);
-	}
-
 	@PostMapping
-	public Unidade save(@RequestBody Unidade Unidade) {
-		return service.save(Unidade);
+	public UnidadeVO save(@RequestBody UnidadeVO unidadeVO) {
+		return service.save(unidadeVO);
 	}
 
 	@PutMapping
-	public Unidade update(@RequestBody Unidade Unidade) {
-		return service.update(Unidade);
+	public UnidadeVO update(@RequestBody UnidadeVO unidadeVO) {
+		return service.update(unidadeVO);
 	}
 
 	@DeleteMapping("/{id}")
