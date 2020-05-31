@@ -16,8 +16,8 @@ import br.com.franca.domain.enun.Status;
 @Entity
 // definindo um index name unique: "nome_endereco_UK" para as colunas: nome,
 // endereco
-@Table(name = "TB_UNIDADE", uniqueConstraints = @UniqueConstraint(columnNames = { "nome",
-		"endereco" }, name = "nome_endereco_UK"))
+@Table(name = "TB_UNIDADE", uniqueConstraints = @UniqueConstraint(columnNames = { "NOME",
+		"ENDERECO" }, name = "NOME_ENDERECO_UK"))
 public class Unidade implements Serializable {
 
 	private static final long serialVersionUID = -8674768342761231956L;
