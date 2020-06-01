@@ -1,5 +1,9 @@
 package br.com.franca.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -17,32 +21,44 @@ import br.com.franca.service.UnidadeService;
 
 @RestController
 @RequestMapping("/unidades")
-public class UnidadeController {
-
+public class UnidadeController {	
 	private UnidadeService service;
-
-	@GetMapping("/{id}")
-	public UnidadeVO findById(@PathVariable("id") Long id) {
-		return service.findById(id);
-	}
-
+	
 	public UnidadeController(UnidadeService service) {
 		this.service = service;
 	}
 
+	@GetMapping("/{id}")
+	public UnidadeVO findById(@PathVariable("id") Long id) {
+		UnidadeVO unidadeVO = service.findById(id);
+		unidadeVO.add(linkTo(methodOn(UnidadeController.class).findById(id)).withSelfRel());
+		return unidadeVO;
+	}
+
 	@GetMapping
 	public List<UnidadeVO> findAll() {
-		return service.findAll();
+		List<UnidadeVO> listaDeUnidadesVO = service.findAll();
+		listaDeUnidadesVO.stream()
+		.forEach(u -> u
+				.add(linkTo(methodOn(UnidadeController.class)
+						.findById(u.getKey())).withSelfRel()));
+		return listaDeUnidadesVO;
 	}
 
 	@PostMapping
-	public UnidadeVO save(@RequestBody UnidadeVO unidadeVO) {
-		return service.save(unidadeVO);
+	public UnidadeVO save(@RequestBody UnidadeVO unidadeVO) throws URISyntaxException {
+		UnidadeVO unidadeSalvaVO = service.save(unidadeVO);
+		unidadeSalvaVO.add(linkTo(methodOn(UnidadeController.class).findById(unidadeSalvaVO.getKey())).withSelfRel());
+		// URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(unidadeSalvaVO.getKey()).toUri();
+		// return ResponseEntity.created(uri).build();
+		return unidadeSalvaVO;
 	}
 
 	@PutMapping
 	public UnidadeVO update(@RequestBody UnidadeVO unidadeVO) {
-		return service.update(unidadeVO);
+		UnidadeVO unidadeVOAtualizada = service.update(unidadeVO);
+		unidadeVOAtualizada.add(linkTo(methodOn(UnidadeController.class).findById(unidadeVOAtualizada.getKey())).withSelfRel());
+		return unidadeVOAtualizada;
 	}
 
 	@DeleteMapping("/{id}")

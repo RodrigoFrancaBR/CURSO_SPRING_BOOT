@@ -2,23 +2,28 @@ package br.com.franca.domain.vo;
 
 import java.io.Serializable;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import com.github.dozermapper.core.Mapping;
+
 import br.com.franca.domain.enun.Status;
 
-public class UnidadeVO implements Serializable {
+public class UnidadeVO extends RepresentationModel<UnidadeVO> implements Serializable {
 
 	public UnidadeVO() {
 	}
 
-	public UnidadeVO(Long id, String nome, String endereco, Status status) {
-		this.id = id;
+	public UnidadeVO(Long key, String nome, String endereco, Status status) {
+		this.key = key;
 		this.nome = nome;
 		this.endereco = endereco;
 		this.status = status;
 	}
 
 	private static final long serialVersionUID = 8049902758244051937L;
-
-	private Long id;
+	
+	@Mapping("id")
+	private Long key;
 
 	private String nome;
 
@@ -26,12 +31,12 @@ public class UnidadeVO implements Serializable {
 
 	private Status status;
 
-	public Long getId() {
-		return id;
+	public Long getKey() {
+		return key;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setKey(Long key) {
+		this.key = key;
 	}
 
 	public String getNome() {
@@ -61,8 +66,8 @@ public class UnidadeVO implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		int result = super.hashCode();
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
 		return result;
 	}
 
@@ -70,22 +75,22 @@ public class UnidadeVO implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		UnidadeVO other = (UnidadeVO) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (key == null) {
+			if (other.key != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!key.equals(other.key))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "UnidadeVO [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", status=" + status + "]";
+		return "UnidadeVO [key=" + key + ", nome=" + nome + ", endereco=" + endereco + ", status=" + status + "]";
 	}
 
 }
