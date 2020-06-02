@@ -6,78 +6,80 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.franca.domain.enun.SituacaoParcela;
+import br.com.franca.domain.vo.ContratoVO;
+import br.com.franca.domain.vo.ParcelaVO;
 
 public class CursoAvistaMaterialParcelado extends CondicaoDeContrato {
 
 	@Override
-	public List<Parcela> calcularParcelas(Contrato contrato) {
+	public List<ParcelaVO> calcularParcelas(ContratoVO contratoVO) {
 
-		Parcela parcela = new Parcela();
+		ParcelaVO parcelaVO = new ParcelaVO();
 
-		List<Parcela> parcelas = new ArrayList<Parcela>();
+		List<ParcelaVO> parcelaVOs = new ArrayList<ParcelaVO>();
 
-		BigDecimal desconto = contrato.getValorCurso().multiply(BigDecimal.valueOf(contrato.getDescontoCurso()));
+		BigDecimal desconto = contratoVO.getValorCurso().multiply(BigDecimal.valueOf(contratoVO.getDescontoCurso()));
 
-		BigDecimal cursoComDescontoAvista = contrato.getValorCurso().subtract(desconto);
+		BigDecimal cursoComDescontoAvista = contratoVO.getValorCurso().subtract(desconto);
 
-		BigDecimal parcelaDoMaterial = contrato.getValorMaterial()
-				.divide(BigDecimal.valueOf(contrato.getQtdParcelasMaterial()), 2, BigDecimal.ROUND_DOWN);
+		BigDecimal parcelaVODoMaterial = contratoVO.getValorMaterial()
+				.divide(BigDecimal.valueOf(contratoVO.getQtdParcelasMaterial()), 2, BigDecimal.ROUND_DOWN);
 
-		BigDecimal residualDaParcelaMaterial = contrato.getValorMaterial()
-				.subtract(parcelaDoMaterial.multiply(BigDecimal.valueOf(contrato.getQtdParcelasMaterial())));
+		BigDecimal residualDaParcelaVOMaterial = contratoVO.getValorMaterial()
+				.subtract(parcelaVODoMaterial.multiply(BigDecimal.valueOf(contratoVO.getQtdParcelasMaterial())));
 
-		parcela.setDataVencimento(Calendar.getInstance());
+		parcelaVO.setDataVencimento(Calendar.getInstance());
 
 		Calendar proximoVencimento = Calendar.getInstance();
 
-		parcela.setValorParcelaMaterial(BigDecimal.valueOf(0));
+		parcelaVO.setValorParcelaMaterial(BigDecimal.valueOf(0));
 
-		parcela.setValorParcelaCurso(cursoComDescontoAvista.add(contrato.getTaxaMatricula()));
+		parcelaVO.setValorParcelaCurso(cursoComDescontoAvista.add(contratoVO.getTaxaMatricula()));
 
-		parcela.setValorTotalParcela(parcela.getValorParcelaCurso());
+		parcelaVO.setValorTotalParcela(parcelaVO.getValorParcelaCurso());
 
-		parcela.setValorPago(parcela.getValorTotalParcela());
+		parcelaVO.setValorPago(parcelaVO.getValorTotalParcela());
 
-		parcela.setDataPagamento(Calendar.getInstance());
+		parcelaVO.setDataPagamento(Calendar.getInstance());
 
-		parcela.setSituacaoParcela(SituacaoParcela.PAGO);
+		parcelaVO.setSituacaoParcela(SituacaoParcela.PAGO);
 
-		parcelas.add(parcela);
+		parcelaVOs.add(parcelaVO);
 
-		int diferenca = Math.abs(contrato.getDiaVencimento() - Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+		int diferenca = Math.abs(contratoVO.getDiaVencimento() - Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
 		if (diferenca >= 20)
 			proximoVencimento.add(Calendar.MONTH, 1);
 
-		for (int i = 1; i <= contrato.getQtdParcelasMaterial(); i++) {
+		for (int i = 1; i <= contratoVO.getQtdParcelasMaterial(); i++) {
 
-			parcela = new Parcela();
+			parcelaVO = new ParcelaVO();
 
 			proximoVencimento = Calendar.getInstance();
 
-			proximoVencimento.set(Calendar.DAY_OF_MONTH, contrato.getDiaVencimento());
+			proximoVencimento.set(Calendar.DAY_OF_MONTH, contratoVO.getDiaVencimento());
 
 			proximoVencimento.add(Calendar.MONTH, i);
 
-			parcela.setDataVencimento(proximoVencimento);
+			parcelaVO.setDataVencimento(proximoVencimento);
 
-			parcela.setValorParcelaCurso((BigDecimal.valueOf(0)));
+			parcelaVO.setValorParcelaCurso((BigDecimal.valueOf(0)));
 
-			parcela.setValorParcelaMaterial(parcelaDoMaterial);
+			parcelaVO.setValorParcelaMaterial(parcelaVODoMaterial);
 
-			if (i == contrato.getQtdParcelasMaterial())
-				parcela.setValorParcelaMaterial(parcelaDoMaterial.add(residualDaParcelaMaterial));
+			if (i == contratoVO.getQtdParcelasMaterial())
+				parcelaVO.setValorParcelaMaterial(parcelaVODoMaterial.add(residualDaParcelaVOMaterial));
 
-			parcela.setValorTotalParcela(parcela.getValorParcelaMaterial());
+			parcelaVO.setValorTotalParcela(parcelaVO.getValorParcelaMaterial());
 
-			parcela.setValorPago(BigDecimal.valueOf(0));
+			parcelaVO.setValorPago(BigDecimal.valueOf(0));
 
-			parcela.setDataPagamento(null);
+			parcelaVO.setDataPagamento(null);
 
-			parcela.setSituacaoParcela(SituacaoParcela.A_VENCER);
+			parcelaVO.setSituacaoParcela(SituacaoParcela.A_VENCER);
 
-			parcelas.add(parcela);
+			parcelaVOs.add(parcelaVO);
 		}
-		return parcelas;
+		return parcelaVOs;
 	}
 }

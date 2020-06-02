@@ -2,26 +2,29 @@ package br.com.franca.domain.vo;
 
 import java.io.Serializable;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import com.github.dozermapper.core.Mapping;
+
 import br.com.franca.domain.enun.Status;
 
-public class TurmaVO implements Serializable {
+public class TurmaVO extends RepresentationModel<UnidadeVO> implements Serializable {
 
 	private static final long serialVersionUID = 8425871917576134741L;
-
-	private Long id;
-
+	@Mapping("id")
+	private Long key;
 	private String nome;
-
 	private Status status;
-
 	private UnidadeVO UnidadeVO;
 
-	public Long getId() {
-		return id;
+	public TurmaVO() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public TurmaVO(Long key, String nome, Status status, UnidadeVO unidadeVO) {
+		this.key = key;
+		this.nome = nome;
+		this.status = status;
+		UnidadeVO = unidadeVO;
 	}
 
 	public String getNome() {
@@ -48,11 +51,24 @@ public class TurmaVO implements Serializable {
 		this.status = status;
 	}
 
+	public Long getKey() {
+		return key;
+	}
+
+	public void setKey(Long key) {
+		this.key = key;
+	}
+
+	@Override
+	public String toString() {
+		return "TurmaVO [key=" + key + ", nome=" + nome + ", status=" + status + ", UnidadeVO=" + UnidadeVO + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
 		return result;
 	}
 
@@ -65,17 +81,12 @@ public class TurmaVO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		TurmaVO other = (TurmaVO) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (key == null) {
+			if (other.key != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!key.equals(other.key))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "TurmaVO [id=" + id + ", nome=" + nome + ", status=" + status + ", UnidadeVO=" + UnidadeVO + "]";
 	}
 
 }

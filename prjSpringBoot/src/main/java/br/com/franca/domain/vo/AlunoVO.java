@@ -3,13 +3,17 @@ package br.com.franca.domain.vo;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import com.github.dozermapper.core.Mapping;
+
 import br.com.franca.domain.enun.Sexo;
 import br.com.franca.domain.enun.SituacaoAluno;
 
-public class AlunoVO implements Serializable {
+public class AlunoVO extends RepresentationModel<AlunoVO> implements Serializable {
 	private static final long serialVersionUID = 3532413982883113131L;
-
-	private Long id;
+	@Mapping("id")
+	private Long key;
 	private String nome;
 	private String cpf;
 	private String rg;
@@ -29,12 +33,40 @@ public class AlunoVO implements Serializable {
 	private String mae;
 	private SituacaoAluno situacaoAluno;
 
-	public Long getId() {
-		return id;
+	public AlunoVO() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public AlunoVO(Long key, String nome, String cpf, String rg, String ufRg, String orgaoExpedidor, Sexo sexo,
+			Calendar dataNascimento, String celular, String residencial, String email, String cep, String endereco,
+			String bairro, String cidade, String estado, String pai, String mae, SituacaoAluno situacaoAluno) {
+		super();
+		this.key = key;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.ufRg = ufRg;
+		this.orgaoExpedidor = orgaoExpedidor;
+		this.sexo = sexo;
+		this.dataNascimento = dataNascimento;
+		this.celular = celular;
+		this.residencial = residencial;
+		this.email = email;
+		this.cep = cep;
+		this.endereco = endereco;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.pai = pai;
+		this.mae = mae;
+		this.situacaoAluno = situacaoAluno;
+	}
+
+	public Long getKey() {
+		return key;
+	}
+
+	public void setKey(Long key) {
+		this.key = key;
 	}
 
 	public String getNome() {
@@ -185,7 +217,7 @@ public class AlunoVO implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
 		return result;
 	}
 
@@ -198,20 +230,21 @@ public class AlunoVO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		AlunoVO other = (AlunoVO) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (key == null) {
+			if (other.key != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!key.equals(other.key))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "AlunoVO [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", rg=" + rg + ", ufRg=" + ufRg
+		return "AlunoVO [key=" + key + ", nome=" + nome + ", cpf=" + cpf + ", rg=" + rg + ", ufRg=" + ufRg
 				+ ", orgaoExpedidor=" + orgaoExpedidor + ", sexo=" + sexo + ", dataNascimento=" + dataNascimento
 				+ ", celular=" + celular + ", residencial=" + residencial + ", email=" + email + ", cep=" + cep
 				+ ", endereco=" + endereco + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado
 				+ ", pai=" + pai + ", mae=" + mae + ", situacaoAluno=" + situacaoAluno + "]";
 	}
+
 }

@@ -33,25 +33,6 @@
 					"response": []
 				},
 				{
-					"name": "findAll",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/unidades",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"unidades"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "save",
 					"request": {
 						"method": "POST",
@@ -63,7 +44,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"status\": \"ATIVA\",\n    \"nome\": \"ABOLIÇÃO\",\n    \"endereco\": \"RUA MACHADO 700\"\n}"
+							"raw": "{\n    \"status\": \"ATIVA\",\n    \"nome\": \"ABOLIÇÃO\",\n    \"endereco\": \"RUA A 1\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/unidades",
@@ -125,6 +106,25 @@
 							"path": [
 								"unidades",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unidades",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidades"
 							]
 						}
 					},

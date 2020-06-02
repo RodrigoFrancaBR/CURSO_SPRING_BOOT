@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import br.com.franca.domain.Turma;
+import br.com.franca.domain.converter.DozerConverter;
 import br.com.franca.domain.enun.Status;
+import br.com.franca.domain.vo.TurmaVO;
 import br.com.franca.exception.ResourceNotFoundException;
 import br.com.franca.repository.TurmaRepository;
 
@@ -18,34 +20,31 @@ public class TurmaService {
 		this.repository = repository;
 	}
 
-	public List<Turma> findAll() {
-		return repository.findAll();
+	public TurmaVO findById(Long id) {
+		Turma turma = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		return DozerConverter.parseObject(turma, TurmaVO.class);
 	}
 
-	public Turma findById(Long id) {
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+	public List<TurmaVO> findAll() {
+		return DozerConverter.parseListObjects(repository.findAll(), TurmaVO.class);
 	}
 
-	public Turma save(Turma turma) {
-		return repository.save(turma);
+	public TurmaVO save(TurmaVO turmaVO) {
+		Turma turma = DozerConverter.parseObject(turmaVO, Turma.class);
+		return DozerConverter.parseObject(repository.save(turma), TurmaVO.class);
 	}
 
-	public Turma update(Turma turma) {
-		Turma turmaEncontrada = findById(turma.getId());
-		Turma turmaAtualizada = getUpdateEntity(turma, turmaEncontrada);
-		return repository.save(turmaAtualizada);
+	public TurmaVO update(TurmaVO turmaVO) {
+		findById(turmaVO.getKey());
+		Turma turmaAtualizada = repository.save(DozerConverter.parseObject(turmaVO, Turma.class));
+		return DozerConverter.parseObject(turmaAtualizada, TurmaVO.class);
 	}
 
 	public void delete(Long id) {
-		Turma turmaEncontrada = findById(id);
+		TurmaVO turmaEncontrada = findById(id);
 		turmaEncontrada.setStatus(Status.DESATIVADA);
-		repository.delete(turmaEncontrada);
-	}
-
-	private Turma getUpdateEntity(Turma turma, Turma turmaEncontrada) {
-		turmaEncontrada.setNome(turma.getNome());		
-		turmaEncontrada.setStatus(turma.getStatus());
-		return turmaEncontrada;
+		repository.delete(DozerConverter.parseObject(turmaEncontrada, Turma.class));
 	}
 
 }

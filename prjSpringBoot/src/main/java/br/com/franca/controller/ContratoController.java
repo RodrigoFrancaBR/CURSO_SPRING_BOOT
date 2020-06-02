@@ -1,5 +1,8 @@
 package br.com.franca.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -11,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.franca.domain.Contrato;
+import br.com.franca.domain.vo.ContratoVO;
 import br.com.franca.service.ContratoService;
 
 @RestController
@@ -24,19 +27,30 @@ public class ContratoController {
 		this.service = service;
 	}
 
-	@GetMapping
-	public List<Contrato> findAll() {
-		return service.findAll();
+	@GetMapping("/{id}")
+	public ContratoVO findById(@PathVariable("id") Long id) {
+		ContratoVO contratoVO = service.findById(id);
+		contratoVO.add(linkTo(methodOn(ContratoController.class).findById(id)).withSelfRel());
+		return contratoVO;
 	}
 
-	@GetMapping("/{id}")
-	public Contrato findById(@PathVariable("id") Long id) {
-		return service.findById(id);
+	@GetMapping
+	public List<ContratoVO> findAll() {
+		List<ContratoVO> listaDeContratosVO = service.findAll();
+		listaDeContratosVO.stream().forEach(
+				cVO -> cVO.add(linkTo(methodOn(ContratoController.class).findById(cVO.getKey())).withSelfRel()));
+		return listaDeContratosVO;
 	}
 
 	@PostMapping
-	public Contrato save(@RequestBody Contrato Contrato) throws Exception {
-		return service.save(Contrato);
+	public ContratoVO save(@RequestBody ContratoVO contratoVO) throws Exception {
+		ContratoVO contratoSalvaVO = service.save(contratoVO);
+		contratoSalvaVO
+				.add(linkTo(methodOn(ContratoController.class).findById(contratoSalvaVO.getKey())).withSelfRel());
+		// URI uri =
+		// ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(contratoSalvaVO.getKey()).toUri();
+		// return ResponseEntity.created(uri).build();
+		return contratoSalvaVO;
 	}
 
 	@DeleteMapping("/{id}")

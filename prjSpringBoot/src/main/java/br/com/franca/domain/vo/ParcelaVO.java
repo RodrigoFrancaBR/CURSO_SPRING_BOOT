@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import com.github.dozermapper.core.Mapping;
+
 import br.com.franca.domain.enun.SituacaoParcela;
 
 public class ParcelaVO implements Serializable {
 
 	private static final long serialVersionUID = -8998366616325786363L;
-	private Long id;
+	@Mapping("id")
+	private Long key;
 	private Calendar dataVencimento = Calendar.getInstance();
 	private BigDecimal valorPago;
 	private Calendar dataPagamento = Calendar.getInstance();
@@ -21,12 +24,32 @@ public class ParcelaVO implements Serializable {
 	private BigDecimal valorResidualParcelaMaterial;
 	private ContratoVO ContratoVO;
 
-	public Long getId() {
-		return id;
+	public ParcelaVO() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public ParcelaVO(Long key, Calendar dataVencimento, BigDecimal valorPago, Calendar dataPagamento,
+			BigDecimal valorParcelaCurso, BigDecimal valorParcelaMaterial, BigDecimal valorTotalParcela,
+			SituacaoParcela situacaoParcela, BigDecimal valorResidualParcelaCurso,
+			BigDecimal valorResidualParcelaMaterial, br.com.franca.domain.vo.ContratoVO contratoVO) {
+		this.key = key;
+		this.dataVencimento = dataVencimento;
+		this.valorPago = valorPago;
+		this.dataPagamento = dataPagamento;
+		this.valorParcelaCurso = valorParcelaCurso;
+		this.valorParcelaMaterial = valorParcelaMaterial;
+		this.valorTotalParcela = valorTotalParcela;
+		this.situacaoParcela = situacaoParcela;
+		this.valorResidualParcelaCurso = valorResidualParcelaCurso;
+		this.valorResidualParcelaMaterial = valorResidualParcelaMaterial;
+		ContratoVO = contratoVO;
+	}
+
+	public Long getKey() {
+		return key;
+	}
+
+	public void setKey(Long key) {
+		this.key = key;
 	}
 
 	public ContratoVO getContratoVO() {
@@ -113,7 +136,7 @@ public class ParcelaVO implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
 		return result;
 	}
 
@@ -126,17 +149,17 @@ public class ParcelaVO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ParcelaVO other = (ParcelaVO) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (key == null) {
+			if (other.key != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!key.equals(other.key))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "ParcelaVO [id=" + id + ", dataVencimento=" + dataVencimento + ", valorPago=" + valorPago
+		return "ParcelaVO [key=" + key + ", dataVencimento=" + dataVencimento + ", valorPago=" + valorPago
 				+ ", dataPagamento=" + dataPagamento + ", valorParcelaCurso=" + valorParcelaCurso
 				+ ", valorParcelaMaterial=" + valorParcelaMaterial + ", valorTotalParcela=" + valorTotalParcela
 				+ ", situacaoParcela=" + situacaoParcela + ", valorResidualParcelaCurso=" + valorResidualParcelaCurso

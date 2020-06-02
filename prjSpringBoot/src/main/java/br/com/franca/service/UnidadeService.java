@@ -35,7 +35,7 @@ public class UnidadeService {
 	}
 
 	public UnidadeVO update(UnidadeVO unidadeVO) {		
-		findById(unidadeVO.getId());
+		findById(unidadeVO.getKey());
 		Unidade unidadeAtualizada = repository.save(DozerConverter.parseObject(unidadeVO, Unidade.class));
 		return DozerConverter.parseObject(unidadeAtualizada, UnidadeVO.class);		
 	}

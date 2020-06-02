@@ -24,7 +24,7 @@ public class DozerConverterTest {
 	public void parseEntityToVOTest() {
 		UnidadeVO unidadeVO = DozerConverter.parseObject(mockUnidade.mockEntity(), UnidadeVO.class);
 
-		Assert.assertEquals(Long.valueOf(0L), unidadeVO.getId());
+		Assert.assertEquals(Long.valueOf(0L), unidadeVO.getKey());
 		Assert.assertEquals("CASCADURA0", unidadeVO.getNome());
 		Assert.assertEquals("RUA X 5000", unidadeVO.getEndereco());
 		Assert.assertEquals(Status.ATIVA, unidadeVO.getStatus());
@@ -36,21 +36,21 @@ public class DozerConverterTest {
 				UnidadeVO.class);
 		UnidadeVO unidadeVOZERO = listaDeUnidadeVO.get(0);
 
-		Assert.assertEquals(Long.valueOf(0L), unidadeVOZERO.getId());
+		Assert.assertEquals(Long.valueOf(0L), unidadeVOZERO.getKey());
 		Assert.assertEquals("CASCADURA0", unidadeVOZERO.getNome());
 		Assert.assertEquals("RUA X 5000", unidadeVOZERO.getEndereco());
 		Assert.assertEquals(Status.ATIVA, unidadeVOZERO.getStatus());
 
 		UnidadeVO unidadeVOSETE = listaDeUnidadeVO.get(7);
 
-		Assert.assertEquals(Long.valueOf(7L), unidadeVOSETE.getId());
+		Assert.assertEquals(Long.valueOf(7L), unidadeVOSETE.getKey());
 		Assert.assertEquals("CASCADURA7", unidadeVOSETE.getNome());
 		Assert.assertEquals("RUA X 5007", unidadeVOSETE.getEndereco());
 		Assert.assertEquals(Status.ATIVA, unidadeVOSETE.getStatus());
 
 		UnidadeVO unidadeNOVE = listaDeUnidadeVO.get(9);
 
-		Assert.assertEquals(Long.valueOf(9L), unidadeNOVE.getId());
+		Assert.assertEquals(Long.valueOf(9L), unidadeNOVE.getKey());
 		Assert.assertEquals("CASCADURA9", unidadeNOVE.getNome());
 		Assert.assertEquals("RUA X 5009", unidadeNOVE.getEndereco());
 		Assert.assertEquals(Status.ATIVA, unidadeNOVE.getStatus());
