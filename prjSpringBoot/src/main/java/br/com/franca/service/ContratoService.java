@@ -7,13 +7,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.franca.domain.Aluno;
 import br.com.franca.domain.CondicaoDeContrato;
 import br.com.franca.domain.Contrato;
-import br.com.franca.domain.Parcela;
-import br.com.franca.domain.Turma;
+import br.com.franca.domain.converter.DozerConverter;
 import br.com.franca.domain.enun.FormaPagamento;
 import br.com.franca.domain.enun.SituacaoMatricula;
+import br.com.franca.domain.vo.AlunoVO;
+import br.com.franca.domain.vo.ContratoVO;
+import br.com.franca.domain.vo.ParcelaVO;
+import br.com.franca.domain.vo.TurmaVO;
 import br.com.franca.exception.ResourceNotFoundException;
 import br.com.franca.repository.ContratoRepository;
 
@@ -35,80 +37,85 @@ public class ContratoService {
 		this.contratoRepository = contratoRepository;
 	}
 
-	public List<Contrato> findAll() {
-		return this.contratoRepository.findAll();
-	}
-
-	public Contrato findById(Long id) {
-		return contratoRepository.findById(id)
+	public ContratoVO findById(Long id) {
+		Contrato contrato = contratoRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+		return DozerConverter.parseObject(contrato, ContratoVO.class);
 	}
 
-	public Contrato save(Contrato contrato) throws Exception {
+	public List<ContratoVO> findAll() {
+		return DozerConverter.parseListObjects(contratoRepository.findAll(), ContratoVO.class);
+	}
 
-		Aluno aluno = alunoService.findById(contrato.getAluno().getId());
-		Turma turma = turmaService.findById(contrato.getTurma().getId());
+	public ContratoVO save(ContratoVO contratoVo) throws Exception {
 
-		contrato.setAluno(aluno);
-		contrato.setTurma(turma);
+		AlunoVO alunoVO = alunoService.findById(contratoVo.getAlunoVO().getKey());
+		TurmaVO turmaVO = turmaService.findById(contratoVo.getTurmaVO().getKey());
 
-		contrato.setMatricula(obterMatricula(contrato));
-		
-			List<Parcela> listaDeParcelas = simularContrato(contrato);
+		contratoVo.setAlunoVO(alunoVO);
+		contratoVo.setTurmaVO(turmaVO);
 
-			contrato.setSituacaoMatricula(SituacaoMatricula.ATIVA);
+		contratoVo.setMatricula(obterMatricula(contratoVo));
 
-			Contrato contratoSalvo = contratoRepository.save(contrato);
+		List<ParcelaVO> listaDeParcelasVO = simularContrato(contratoVo);
 
-			// configurar id do contrato nas parcelas
-			listaDeParcelas.forEach(p -> p.setContrato(contratoSalvo));
+		contratoVo.setSituacaoMatricula(SituacaoMatricula.ATIVA);
 
-			listaDeParcelas.forEach(parcelaService::save);
+		Contrato contrato = DozerConverter.parseObject(contratoVo, Contrato.class);
 
-			return contratoSalvo;
+		ContratoVO contratoVOSalvo = DozerConverter.parseObject(contratoRepository.save(contrato), ContratoVO.class);
+
+		// contratoVo contratoSalvo = contratoRepository.save(contrato);
+
+		// configurar id do contrato nas parcelas
+		listaDeParcelasVO.forEach(pVO -> pVO.setContratoVO(contratoVOSalvo));
+
+		listaDeParcelasVO.forEach(parcelaService::save);
+
+		return contratoVOSalvo;
 	}
 
 	public void delete(Long id) {
-		Contrato contratoEncontrado = findById(id);
+		ContratoVO contratoEncontrado = findById(id);
 		contratoEncontrado.setSituacaoMatricula(SituacaoMatricula.CANCELADA);
-		contratoRepository.save(contratoEncontrado);
+		contratoRepository.delete(DozerConverter.parseObject(contratoEncontrado, Contrato.class));
 	}
 
-	private String obterMatricula(Contrato contrato) {
-		int anoAtual = contrato.getDataMatricula().get(Calendar.YEAR);
-		String cpfInicio = contrato.getAluno().getCpf().substring(0, 3);
-		String turmaNome = contrato.getTurma().getNome();
+	private String obterMatricula(ContratoVO contratoVo) {
+		int anoAtual = contratoVo.getDataMatricula().get(Calendar.YEAR);
+		String cpfInicio = contratoVo.getAlunoVO().getCpf().substring(0, 3);
+		String turmaNome = contratoVo.getTurmaVO().getNome();
 		String matricula = anoAtual + cpfInicio + turmaNome;
 		return matricula;
 	}
 
-	public List<Parcela> simularContrato(Contrato contrato) throws Exception {
+	public List<ParcelaVO> simularContrato(ContratoVO contratoVO) throws Exception {
 
-		if (contrato.getDescontoCurso() == null)
-			contrato.setDescontoCurso(0.0);
+		if (contratoVO.getDescontoCurso() == null)
+			contratoVO.setDescontoCurso(0.0);
 
-		if (contrato.getTaxaMatricula() == null)
-			contrato.setTaxaMatricula(BigDecimal.valueOf(0));
+		if (contratoVO.getTaxaMatricula() == null)
+			contratoVO.setTaxaMatricula(BigDecimal.valueOf(0));
 
-		if (contrato.getDiaVencimento() == null)
-			contrato.setDiaVencimento(Calendar.getInstance().DAY_OF_YEAR);
+		if (contratoVO.getDiaVencimento() == null)
+			contratoVO.setDiaVencimento(Calendar.getInstance().DAY_OF_YEAR);
 
-		if (contrato.getFormaPagamento() == null)
-			contrato.setFormaPagamento(FormaPagamento.DINHEIRO);
+		if (contratoVO.getFormaPagamento() == null)
+			contratoVO.setFormaPagamento(FormaPagamento.DINHEIRO);
 
-		if (contrato.getValorCurso() == null)
+		if (contratoVO.getValorCurso() == null)
 			throw new Exception("Valor do curso é null.");
 
-		if (contrato.getValorMaterial() == null)
+		if (contratoVO.getValorMaterial() == null)
 			throw new Exception("Valor do material é null.");
 
-		if (contrato.getQtdParcelasCurso() == null)
+		if (contratoVO.getQtdParcelasCurso() == null)
 			throw new Exception("Quantidade de Parcelas do Curso é null.");
 
-		if (contrato.getQtdParcelasMaterial() == null)
+		if (contratoVO.getQtdParcelasMaterial() == null)
 			throw new Exception("Quantidade de Parcelas do Material é null.");
 
-		return CondicaoDeContrato.getParcelas(contrato);
+		return CondicaoDeContrato.getParcelas(contratoVO);
 	}
 
 }

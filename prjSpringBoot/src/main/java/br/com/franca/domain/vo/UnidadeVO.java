@@ -10,6 +10,13 @@ import br.com.franca.domain.enun.Status;
 
 public class UnidadeVO extends RepresentationModel<UnidadeVO> implements Serializable {
 
+	private static final long serialVersionUID = 8049902758244051937L;
+	@Mapping("id")
+	private Long key;
+	private String nome;
+	private String endereco;
+	private Status status;
+
 	public UnidadeVO() {
 	}
 
@@ -19,17 +26,6 @@ public class UnidadeVO extends RepresentationModel<UnidadeVO> implements Seriali
 		this.endereco = endereco;
 		this.status = status;
 	}
-
-	private static final long serialVersionUID = 8049902758244051937L;
-	
-	@Mapping("id")
-	private Long key;
-
-	private String nome;
-
-	private String endereco;
-
-	private Status status;
 
 	public Long getKey() {
 		return key;

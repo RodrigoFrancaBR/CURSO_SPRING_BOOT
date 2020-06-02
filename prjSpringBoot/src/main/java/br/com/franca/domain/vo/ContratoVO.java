@@ -4,12 +4,18 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import com.github.dozermapper.core.Mapping;
+
 import br.com.franca.domain.enun.FormaPagamento;
 import br.com.franca.domain.enun.SituacaoMatricula;
 
-public class ContratoVO implements Serializable {
+public class ContratoVO extends RepresentationModel<ContratoVO> implements Serializable {
+	
 	private static final long serialVersionUID = -3893151623589348570L;
-	private Long id;
+	@Mapping("id")
+	private Long key;
 	private BigDecimal taxaMatricula = new BigDecimal(0);
 	private BigDecimal valorCurso;
 	private Double descontoCurso;
@@ -20,16 +26,39 @@ public class ContratoVO implements Serializable {
 	private Integer diaVencimento;
 	private Calendar dataMatricula = Calendar.getInstance();
 	private String matricula;
-	private SituacaoMatricula SituacaoMatricula;
+	private SituacaoMatricula situacaoMatricula;
 	private AlunoVO alunoVO;
 	private TurmaVO turmaVO;
 
-	public Long getId() {
-		return id;
+	public ContratoVO() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public ContratoVO(Long key, BigDecimal taxaMatricula, BigDecimal valorCurso, Double descontoCurso,
+			Integer qtdParcelasCurso, Integer qtdParcelasMaterial, BigDecimal valorMaterial,
+			FormaPagamento formaPagamento, Integer diaVencimento, Calendar dataMatricula, String matricula,
+			br.com.franca.domain.enun.SituacaoMatricula situacaoMatricula, AlunoVO alunoVO, TurmaVO turmaVO) {
+		this.key = key;
+		this.taxaMatricula = taxaMatricula;
+		this.valorCurso = valorCurso;
+		this.descontoCurso = descontoCurso;
+		this.qtdParcelasCurso = qtdParcelasCurso;
+		this.qtdParcelasMaterial = qtdParcelasMaterial;
+		this.valorMaterial = valorMaterial;
+		this.formaPagamento = formaPagamento;
+		this.diaVencimento = diaVencimento;
+		this.dataMatricula = dataMatricula;
+		this.matricula = matricula;
+		this.situacaoMatricula = situacaoMatricula;
+		this.alunoVO = alunoVO;
+		this.turmaVO = turmaVO;
+	}
+
+	public Long getKey() {
+		return key;
+	}
+
+	public void setKey(Long key) {
+		this.key = key;
 	}
 
 	public BigDecimal getTaxaMatricula() {
@@ -113,11 +142,11 @@ public class ContratoVO implements Serializable {
 	}
 
 	public SituacaoMatricula getSituacaoMatricula() {
-		return SituacaoMatricula;
+		return situacaoMatricula;
 	}
 
 	public void setSituacaoMatricula(SituacaoMatricula situacaoMatricula) {
-		SituacaoMatricula = situacaoMatricula;
+		this.situacaoMatricula = situacaoMatricula;
 	}
 
 	public AlunoVO getAlunoVO() {
@@ -140,7 +169,7 @@ public class ContratoVO implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
 		return result;
 	}
 
@@ -153,21 +182,21 @@ public class ContratoVO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ContratoVO other = (ContratoVO) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (key == null) {
+			if (other.key != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!key.equals(other.key))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "ContratoVO [id=" + id + ", taxaMatricula=" + taxaMatricula + ", valorCurso=" + valorCurso
+		return "ContratoVO [key=" + key + ", taxaMatricula=" + taxaMatricula + ", valorCurso=" + valorCurso
 				+ ", descontoCurso=" + descontoCurso + ", qtdParcelasCurso=" + qtdParcelasCurso
 				+ ", qtdParcelasMaterial=" + qtdParcelasMaterial + ", valorMaterial=" + valorMaterial
 				+ ", formaPagamento=" + formaPagamento + ", diaVencimento=" + diaVencimento + ", dataMatricula="
-				+ dataMatricula + ", matricula=" + matricula + ", SituacaoMatricula=" + SituacaoMatricula + ", alunoVO="
+				+ dataMatricula + ", matricula=" + matricula + ", situacaoMatricula=" + situacaoMatricula + ", alunoVO="
 				+ alunoVO + ", turmaVO=" + turmaVO + "]";
 	}
 

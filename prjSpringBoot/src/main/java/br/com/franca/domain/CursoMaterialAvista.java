@@ -6,40 +6,42 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.franca.domain.enun.SituacaoParcela;
+import br.com.franca.domain.vo.ContratoVO;
+import br.com.franca.domain.vo.ParcelaVO;
 
 public class CursoMaterialAvista extends CondicaoDeContrato {
 
 	@Override
-	public List<Parcela> calcularParcelas(Contrato contrato) {
+	public List<ParcelaVO> calcularParcelas(ContratoVO contratoVO) {
 
-		Parcela parcela = new Parcela();
+		ParcelaVO parcelaVO = new ParcelaVO();
 
-		List <Parcela> parcelas = new ArrayList<Parcela>();
+		List<ParcelaVO> parcelaVOs = new ArrayList<ParcelaVO>();
 
-		parcela.setDataVencimento(Calendar.getInstance());
+		parcelaVO.setDataVencimento(Calendar.getInstance());
 
-		BigDecimal desconto = contrato.getValorCurso().multiply(BigDecimal.valueOf(contrato.getDescontoCurso()));
+		BigDecimal desconto = contratoVO.getValorCurso().multiply(BigDecimal.valueOf(contratoVO.getDescontoCurso()));
 
-		parcela.setValorParcelaCurso(contrato.getValorCurso().subtract(desconto));
+		parcelaVO.setValorParcelaCurso(contratoVO.getValorCurso().subtract(desconto));
 
-		parcela.setValorResidualParcelaCurso(BigDecimal.valueOf(0));
+		parcelaVO.setValorResidualParcelaCurso(BigDecimal.valueOf(0));
 
-		parcela.setValorParcelaMaterial(contrato.getValorMaterial());
+		parcelaVO.setValorParcelaMaterial(contratoVO.getValorMaterial());
 
-		parcela.setValorResidualParcelaMaterial(BigDecimal.valueOf(0));
+		parcelaVO.setValorResidualParcelaMaterial(BigDecimal.valueOf(0));
 
-		parcela.setValorTotalParcela(
-				parcela.getValorParcelaCurso().add(parcela.getValorParcelaMaterial()).add(contrato.getTaxaMatricula()));
+		parcelaVO.setValorTotalParcela(parcelaVO.getValorParcelaCurso().add(parcelaVO.getValorParcelaMaterial())
+				.add(contratoVO.getTaxaMatricula()));
 
-		parcela.setValorPago(parcela.getValorTotalParcela());
+		parcelaVO.setValorPago(parcelaVO.getValorTotalParcela());
 
-		parcela.setDataPagamento(Calendar.getInstance());
+		parcelaVO.setDataPagamento(Calendar.getInstance());
 
-		parcela.setSituacaoParcela(SituacaoParcela.PAGO);
+		parcelaVO.setSituacaoParcela(SituacaoParcela.PAGO);
 
-		parcela.setContrato(contrato);
+		parcelaVO.setContratoVO(contratoVO);
 
-		parcelas.add(parcela);
-		return parcelas;
+		parcelaVOs.add(parcelaVO);
+		return parcelaVOs;
 	}
 }

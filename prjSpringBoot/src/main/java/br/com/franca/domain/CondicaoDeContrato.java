@@ -2,29 +2,32 @@ package br.com.franca.domain;
 
 import java.util.List;
 
+import br.com.franca.domain.vo.ContratoVO;
+import br.com.franca.domain.vo.ParcelaVO;
+
 public abstract class CondicaoDeContrato {
-	public abstract List<Parcela> calcularParcelas(Contrato contrato);
+	public abstract List<ParcelaVO> calcularParcelas(ContratoVO contratoVO);
 
-	public static List<Parcela> getParcelas(Contrato contrato) {
-		List<Parcela> parcelas = null;
+	public static List<ParcelaVO> getParcelas(ContratoVO contratoVO) {
+		List<ParcelaVO> parcelasVO = null;
 
-		if (contrato.getQtdParcelasCurso() == 1 && contrato.getQtdParcelasMaterial() == 1) {
-			parcelas = new CursoMaterialAvista().calcularParcelas(contrato);
+		if (contratoVO.getQtdParcelasCurso() == 1 && contratoVO.getQtdParcelasMaterial() == 1) {
+			parcelasVO = new CursoMaterialAvista().calcularParcelas(contratoVO);
 		}
 
-		if (contrato.getQtdParcelasCurso() == 1 && contrato.getQtdParcelasMaterial() >= 2) {
-			parcelas = new CursoAvistaMaterialParcelado().calcularParcelas(contrato);
+		if (contratoVO.getQtdParcelasCurso() == 1 && contratoVO.getQtdParcelasMaterial() >= 2) {
+			parcelasVO = new CursoAvistaMaterialParcelado().calcularParcelas(contratoVO);
 		}
 
-		if (contrato.getQtdParcelasCurso() >= 2 && contrato.getQtdParcelasMaterial() == 1) {
-			parcelas = new CursoParceladoMaterialAvista().calcularParcelas(contrato);
+		if (contratoVO.getQtdParcelasCurso() >= 2 && contratoVO.getQtdParcelasMaterial() == 1) {
+			parcelasVO = new CursoParceladoMaterialAvista().calcularParcelas(contratoVO);
 		}
 
-		if (contrato.getQtdParcelasCurso() >= 2 && contrato.getQtdParcelasMaterial() >= 2) {
-			parcelas = new CursoMaterialParcelado().calcularParcelas(contrato);
+		if (contratoVO.getQtdParcelasCurso() >= 2 && contratoVO.getQtdParcelasMaterial() >= 2) {
+			parcelasVO = new CursoMaterialParcelado().calcularParcelas(contratoVO);
 		}
 
-		return parcelas;
+		return parcelasVO;
 	}
 
 }

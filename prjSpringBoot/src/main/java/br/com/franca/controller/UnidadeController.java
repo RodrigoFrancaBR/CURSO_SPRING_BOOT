@@ -22,6 +22,7 @@ import br.com.franca.service.UnidadeService;
 @RestController
 @RequestMapping("/unidades")
 public class UnidadeController {	
+	
 	private UnidadeService service;
 	
 	public UnidadeController(UnidadeService service) {
@@ -46,7 +47,7 @@ public class UnidadeController {
 	}
 
 	@PostMapping
-	public UnidadeVO save(@RequestBody UnidadeVO unidadeVO) throws URISyntaxException {
+	public UnidadeVO save(@RequestBody UnidadeVO unidadeVO) {
 		UnidadeVO unidadeSalvaVO = service.save(unidadeVO);
 		unidadeSalvaVO.add(linkTo(methodOn(UnidadeController.class).findById(unidadeSalvaVO.getKey())).withSelfRel());
 		// URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(unidadeSalvaVO.getKey()).toUri();
