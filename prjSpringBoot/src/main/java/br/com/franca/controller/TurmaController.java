@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.franca.domain.vo.TurmaVO;
+import br.com.franca.domain.vo.UnidadeVO;
 import br.com.franca.service.TurmaService;
 
 @RestController
@@ -32,33 +33,36 @@ public class TurmaController {
 	@GetMapping("/{id}")
 	public TurmaVO findById(@PathVariable("id") Long id) {
 		TurmaVO turmaVO = service.findById(id);
+		UnidadeVO unidadeVO = turmaVO.getUnidadeVO();
+		unidadeVO.add(linkTo(methodOn(UnidadeController.class).findById(unidadeVO.getKey())).withSelfRel());
+		turmaVO.setUnidadeVO(unidadeVO);
 		turmaVO.add(linkTo(methodOn(TurmaController.class).findById(id)).withSelfRel());
 		return turmaVO;
 	}
 
 	@GetMapping
 	public List<TurmaVO> findAll() {
-		List<TurmaVO> listaDeUnidadesVO = service.findAll();
-		listaDeUnidadesVO.stream()
-				.forEach(u -> u.add(linkTo(methodOn(UnidadeController.class).findById(u.getKey())).withSelfRel()));
-		return listaDeUnidadesVO;
+		List<TurmaVO> listaDeTurmasVO = service.findAll();
+		listaDeTurmasVO.stream()
+				.forEach(tVO -> tVO.add(linkTo(methodOn(TurmaController.class).findById(tVO.getKey())).withSelfRel()));
+		return listaDeTurmasVO;
 	}
 
 	@PostMapping
 	public TurmaVO save(@RequestBody TurmaVO turmaVO) throws URISyntaxException {
-		TurmaVO unidadeSalvaVO = service.save(turmaVO);
-		unidadeSalvaVO.add(linkTo(methodOn(UnidadeController.class).findById(unidadeSalvaVO.getKey())).withSelfRel());
+		TurmaVO turmaSalvaVO = service.save(turmaVO);
+		turmaSalvaVO.add(linkTo(methodOn(TurmaController.class).findById(turmaSalvaVO.getKey())).withSelfRel());
 		// URI uri =
 		// ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(unidadeSalvaVO.getKey()).toUri();
 		// return ResponseEntity.created(uri).build();
-		return unidadeSalvaVO;
+		return turmaSalvaVO;
 	}
 
 	@PutMapping
 	public TurmaVO update(@RequestBody TurmaVO turmaVO) {
 		TurmaVO turmaVOAtualizada = service.update(turmaVO);
 		turmaVOAtualizada
-				.add(linkTo(methodOn(UnidadeController.class).findById(turmaVOAtualizada.getKey())).withSelfRel());
+				.add(linkTo(methodOn(TurmaController.class).findById(turmaVOAtualizada.getKey())).withSelfRel());
 		return turmaVOAtualizada;
 	}
 
