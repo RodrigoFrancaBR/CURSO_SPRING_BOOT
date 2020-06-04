@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.franca.domain.Aluno;
 import br.com.franca.domain.CondicaoDeContrato;
 import br.com.franca.domain.Contrato;
+import br.com.franca.domain.Turma;
 import br.com.franca.domain.converter.DozerConverter;
 import br.com.franca.domain.enun.FormaPagamento;
 import br.com.franca.domain.enun.SituacaoMatricula;
@@ -60,8 +62,12 @@ public class ContratoService {
 		List<ParcelaVO> listaDeParcelasVO = simularContrato(contratoVo);
 
 		contratoVo.setSituacaoMatricula(SituacaoMatricula.ATIVA);
-
+		
+		Aluno aluno = DozerConverter.parseObject(contratoVo.getAlunoVO(), Aluno.class);
+		Turma turma = DozerConverter.parseObject(contratoVo.getTurmaVO(), Turma.class);
 		Contrato contrato = DozerConverter.parseObject(contratoVo, Contrato.class);
+		contrato.setAluno(aluno);
+		contrato.setTurma(turma);
 
 		ContratoVO contratoVOSalvo = DozerConverter.parseObject(contratoRepository.save(contrato), ContratoVO.class);
 

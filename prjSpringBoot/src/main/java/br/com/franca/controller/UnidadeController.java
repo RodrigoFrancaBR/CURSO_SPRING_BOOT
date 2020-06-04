@@ -3,7 +3,6 @@ package br.com.franca.controller;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -21,10 +20,10 @@ import br.com.franca.service.UnidadeService;
 
 @RestController
 @RequestMapping("/unidades")
-public class UnidadeController {	
-	
+public class UnidadeController {
+
 	private UnidadeService service;
-	
+
 	public UnidadeController(UnidadeService service) {
 		this.service = service;
 	}
@@ -40,9 +39,7 @@ public class UnidadeController {
 	public List<UnidadeVO> findAll() {
 		List<UnidadeVO> listaDeUnidadesVO = service.findAll();
 		listaDeUnidadesVO.stream()
-		.forEach(u -> u
-				.add(linkTo(methodOn(UnidadeController.class)
-						.findById(u.getKey())).withSelfRel()));
+				.forEach(u -> u.add(linkTo(methodOn(UnidadeController.class).findById(u.getKey())).withSelfRel()));
 		return listaDeUnidadesVO;
 	}
 
@@ -50,7 +47,8 @@ public class UnidadeController {
 	public UnidadeVO save(@RequestBody UnidadeVO unidadeVO) {
 		UnidadeVO unidadeSalvaVO = service.save(unidadeVO);
 		unidadeSalvaVO.add(linkTo(methodOn(UnidadeController.class).findById(unidadeSalvaVO.getKey())).withSelfRel());
-		// URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(unidadeSalvaVO.getKey()).toUri();
+		// URI uri =
+		// ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(unidadeSalvaVO.getKey()).toUri();
 		// return ResponseEntity.created(uri).build();
 		return unidadeSalvaVO;
 	}
@@ -58,7 +56,8 @@ public class UnidadeController {
 	@PutMapping
 	public UnidadeVO update(@RequestBody UnidadeVO unidadeVO) {
 		UnidadeVO unidadeVOAtualizada = service.update(unidadeVO);
-		unidadeVOAtualizada.add(linkTo(methodOn(UnidadeController.class).findById(unidadeVOAtualizada.getKey())).withSelfRel());
+		unidadeVOAtualizada
+				.add(linkTo(methodOn(UnidadeController.class).findById(unidadeVOAtualizada.getKey())).withSelfRel());
 		return unidadeVOAtualizada;
 	}
 

@@ -20,7 +20,7 @@ public class UnidadeService {
 	}
 
 	public List<UnidadeVO> findAll() {
-		return DozerConverter.parseListObjects(repository.findAll(), UnidadeVO.class);		
+		return DozerConverter.parseListObjects(repository.findAll(), UnidadeVO.class);
 	}
 
 	public UnidadeVO findById(Long id) {
@@ -34,15 +34,24 @@ public class UnidadeService {
 		return DozerConverter.parseObject(repository.save(unidade), UnidadeVO.class);
 	}
 
-	public UnidadeVO update(UnidadeVO unidadeVO) {		
-		findById(unidadeVO.getKey());
-		Unidade unidadeAtualizada = repository.save(DozerConverter.parseObject(unidadeVO, Unidade.class));
-		return DozerConverter.parseObject(unidadeAtualizada, UnidadeVO.class);		
+	public UnidadeVO update(UnidadeVO unidadeVO) {
+		UnidadeVO unidadeEncontradaVO = findById(unidadeVO.getKey());
+		UnidadeVO unidadeAtualziadaVO = getUpdateEntity(unidadeVO, unidadeEncontradaVO);
+		Unidade unidadeAtualizada = repository.save(DozerConverter.parseObject(unidadeAtualziadaVO, Unidade.class));
+		return DozerConverter.parseObject(unidadeAtualizada, UnidadeVO.class);
 	}
 
 	public void delete(Long id) {
 		UnidadeVO unidadeEncontrada = findById(id);
 		unidadeEncontrada.setStatus(Status.DESATIVADA);
-		repository.delete(DozerConverter.parseObject(unidadeEncontrada, Unidade.class));
+		repository.save(DozerConverter.parseObject(unidadeEncontrada, Unidade.class));
+	}
+
+	private UnidadeVO getUpdateEntity(UnidadeVO unidadeVO, UnidadeVO unidadeEncontradaVO) {
+		unidadeEncontradaVO.setNome(unidadeVO.getNome());
+		unidadeEncontradaVO.setEndereco(unidadeVO.getEndereco());
+		unidadeEncontradaVO.setStatus(unidadeVO.getStatus());
+
+		return unidadeEncontradaVO;
 	}
 }

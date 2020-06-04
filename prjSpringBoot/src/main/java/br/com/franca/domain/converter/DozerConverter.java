@@ -18,4 +18,5 @@ public class DozerConverter {
 		sourceObjectList.forEach(sourceObject -> destObjectList.add(mapper.map(sourceObject, destObject)));
 		return destObjectList;
 	}
+		
 }

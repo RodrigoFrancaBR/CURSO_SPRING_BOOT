@@ -33,17 +33,25 @@ public class AlunoService {
 		Aluno aluno = DozerConverter.parseObject(alunoVO, Aluno.class);
 		return DozerConverter.parseObject(repository.save(aluno), AlunoVO.class);
 	}
-
+	
 	public AlunoVO update(AlunoVO alunoVO) {
-		findById(alunoVO.getKey());
-		Aluno alunoAtualizada = repository.save(DozerConverter.parseObject(alunoVO, Aluno.class));
-		return DozerConverter.parseObject(alunoAtualizada, AlunoVO.class);
+		AlunoVO alunoEncontradoVO = findById(alunoVO.getKey());
+		AlunoVO alunoAtualizadoVO = getUpdateEntity(alunoVO, alunoEncontradoVO);
+		Aluno alunoAtualizado = repository.save(DozerConverter.parseObject(alunoAtualizadoVO, Aluno.class));
+		return DozerConverter.parseObject(alunoAtualizado, AlunoVO.class);
 	}
 
 	public void delete(Long id) {
 		AlunoVO alunoEncontrado = findById(id);
 		alunoEncontrado.setSituacaoAluno(SituacaoAluno.INATIVO);
 		repository.delete(DozerConverter.parseObject(alunoEncontrado, Aluno.class));
+	}
+	
+	private AlunoVO getUpdateEntity(AlunoVO alunoVO, AlunoVO alunoEncontradoVO) {
+		alunoEncontradoVO.setNome(alunoVO.getNome());
+		alunoEncontradoVO.setSituacaoAluno(alunoVO.getSituacaoAluno());
+
+		return alunoEncontradoVO;
 	}
 
 }
