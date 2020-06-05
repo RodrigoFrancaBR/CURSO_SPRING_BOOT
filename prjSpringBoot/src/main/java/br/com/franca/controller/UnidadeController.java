@@ -6,6 +6,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.franca.domain.vo.UnidadeVO;
 import br.com.franca.service.UnidadeService;
-
+//@CrossOrigin
 @RestController
 @RequestMapping("/unidades")
 public class UnidadeController {
@@ -27,14 +28,14 @@ public class UnidadeController {
 	public UnidadeController(UnidadeService service) {
 		this.service = service;
 	}
-
+	// @CrossOrigin(origins="http://localhost:8080")
 	@GetMapping("/{id}")
 	public UnidadeVO findById(@PathVariable("id") Long id) {
 		UnidadeVO unidadeVO = service.findById(id);
 		unidadeVO.add(linkTo(methodOn(UnidadeController.class).findById(id)).withSelfRel());
 		return unidadeVO;
 	}
-
+	
 	@GetMapping
 	public List<UnidadeVO> findAll() {
 		List<UnidadeVO> listaDeUnidadesVO = service.findAll();
