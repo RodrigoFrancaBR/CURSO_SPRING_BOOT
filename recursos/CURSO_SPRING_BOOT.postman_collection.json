@@ -11,14 +11,25 @@
 				{
 					"name": "delete",
 					"request": {
-						"method": "DELETE",
-						"header": [],
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "{{content_type}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/unidades/1",
+							"raw": "http://localhost:8080/unidades/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -26,7 +37,7 @@
 							"port": "8080",
 							"path": [
 								"unidades",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -47,7 +58,7 @@
 							"raw": "{\n    \"status\": \"ATIVA\",\n    \"nome\": \"ABOLIÇÃO\",\n    \"endereco\": \"RUA A 1\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/unidades",
+							"raw": "http://localhost:8080/unidades?Authorization=Bearer {{bearer_token}}&Content-Type={{content_type}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -55,6 +66,16 @@
 							"port": "8080",
 							"path": [
 								"unidades"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer {{bearer_token}}"
+								},
+								{
+									"key": "Content-Type",
+									"value": "{{content_type}}"
+								}
 							]
 						}
 					},
@@ -66,7 +87,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/unidades/1",
+							"raw": "http://localhost:8080/unidades/1?Authorization=Bearer {{bearer_token}}&Content-Type={{content_type}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -75,6 +96,16 @@
 							"path": [
 								"unidades",
 								"1"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer {{bearer_token}}"
+								},
+								{
+									"key": "Content-Type",
+									"value": "{{content_type}}"
+								}
 							]
 						}
 					},
@@ -94,10 +125,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 5,\n    \"status\": \"ATIVA\",\n    \"nome\": \"MÉIER\",\n    \"endereco\": \"RUA CAROLINA MACHADO 700\"\n}"
+							"raw": "{\n    \"key\": 5,\n    \"status\": \"ATIVA\",\n    \"nome\": \"MÉIER\",\n    \"endereco\": \"RUA CAROLINA MACHADO 700\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/unidades/",
+							"raw": "http://localhost:8080/unidades/?Authorization=Bearer {{bearer_token}}&Content-Type={{content_type}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -106,6 +137,16 @@
 							"path": [
 								"unidades",
 								""
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer {{bearer_token}}"
+								},
+								{
+									"key": "Content-Type",
+									"value": "{{content_type}}"
+								}
 							]
 						}
 					},
@@ -115,7 +156,18 @@
 					"name": "findAll",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "{{content_type}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:8080/unidades",
 							"protocol": "http",
@@ -164,7 +216,13 @@
 					"name": "findAll",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Origin",
+								"value": "http://www.erudio.com.br",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:8080/turmas",
 							"protocol": "http",
@@ -191,7 +249,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"1002\",\n    \"status\":\"ATIVA\",\n    \"unidade\": {\n        \"id\": 4\n    }\n}"
+							"raw": "{\n    \"nome\": \"1002\",\n    \"status\":\"ATIVA\",\n    \"unidadeVO\": {\n        \"key\": 4\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/turmas",
@@ -241,7 +299,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"nome\": \"2000\",\n    \"status\": \"ATIVA\",\n    \"unidade\": {\n        \"id\": 1,\n        \"nome\": \"ABOLIÇÃO\",\n        \"endereco\": \"RUA MACHADO 5\",\n        \"status\": \"ATIVA\"\n    }\n}"
+							"raw": "{\n    \"key\": 1,\n    \"nome\": \"1003\",\n    \"status\": \"ATIVA\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/turmas/",
@@ -328,7 +386,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"RODRIGO FRANÇA COSTA\",\r\n    \"cpf\": \"19988877761\",\r\n    \"rg\": \"998887771\",\r\n    \"ufRg\": \"RJ\",\r\n    \"orgaoExpedidor\": \"DETRAN\",\r\n    \"sexo\": \"MASCULINO\",\r\n    \"dataNascimento\": \"1985-09-03T03:00:00.000+00:00\",\r\n    \"celular\": \"21984880409\",\r\n    \"residencial\": \"2132768531\",\r\n    \"email\": \"RFRANCA@GMAIL.COM\",\r\n    \"cep\": \"21381050\",\r\n    \"endereco\": \"QUINTÃO 153\",\r\n    \"bairro\": \"CASCADURA\",\r\n    \"cidade\": \"RIO DE JANEIRO\",\r\n    \"estado\": \"RJ\",\r\n    \"pai\": \"DARCY\",\r\n    \"mae\": \"FATIMA\",\r\n    \"situacaoAluno\": \"ATIVO\"\r\n}"
+							"raw": "{\r\n    \"nome\": \"ALUNO 1\",\r\n    \"cpf\": \"99988877761\",\r\n    \"rg\": \"9988877761\",\r\n    \"ufRg\": \"RJ\",\r\n    \"orgaoExpedidor\": \"DETRAN\",\r\n    \"sexo\": \"MASCULINO\",\r\n    \"dataNascimento\": \"1985-09-03T03:00:00.000+00:00\",\r\n    \"celular\": \"99877665544\",\r\n    \"residencial\": \"9988776655\",\r\n    \"email\": \"ALUNO@GMAIL.COM\",\r\n    \"cep\": \"99888777\",\r\n    \"endereco\": \"RUA C1\",\r\n    \"bairro\": \"CASCADURA\",\r\n    \"cidade\": \"RIO DE JANEIRO\",\r\n    \"estado\": \"RJ\",\r\n    \"pai\": \"PAI DE ALUNO 1\",\r\n    \"mae\": \"MAE DE ALUNO 1\",\r\n    \"situacaoAluno\": \"ATIVO\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/alunos",
@@ -512,7 +570,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \n    \"valorCurso\": 986.56,\n    \"valorMaterial\": 325.66,\n    \"qtdParcelasCurso\": 9,\n    \"qtdParcelasMaterial\": 3,\n    \"aluno\": {\n        \"id\": 1\n    },\n    \"turma\": {\n        \"id\": 1,\n        \"unidade\": {\n            \"id\": 1\n        }\n    }\n}"
+							"raw": "{\n    \n    \"valorCurso\": 986.56,\n    \"valorMaterial\": 325.66,\n    \"qtdParcelasCurso\": 1,\n    \"qtdParcelasMaterial\": 1,\n    \"alunoVO\": {\n        \"key\": 1\n    },\n    \"turmaVO\": {\n        \"key\": 1,\n        \"unidadeVO\": {\n            \"key\": 1\n        }\n    }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/contratos/",
@@ -531,6 +589,62 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "20d01a70-70b3-4bae-ac79-8d8d61e7ea03",
+						"exec": [
+							"if (responseCode.code >= 200 && responseCode.code <= 299) {\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    postman.setEnvironmentVariable('bearer_token', jsonData.token);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "http://www.facebook.com",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{content_type}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"{{user}}\",\n    \"password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
