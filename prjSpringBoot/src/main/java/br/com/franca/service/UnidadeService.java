@@ -2,11 +2,12 @@ package br.com.franca.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import br.com.franca.domain.Unidade;
 import br.com.franca.domain.converter.DozerConverter;
-import br.com.franca.domain.enun.Status;
 import br.com.franca.domain.vo.UnidadeVO;
 import br.com.franca.exception.ResourceNotFoundException;
 import br.com.franca.repository.UnidadeRepository;
@@ -40,11 +41,13 @@ public class UnidadeService {
 		Unidade unidadeAtualizada = repository.save(DozerConverter.parseObject(unidadeAtualziadaVO, Unidade.class));
 		return DozerConverter.parseObject(unidadeAtualizada, UnidadeVO.class);
 	}
-
-	public void delete(Long id) {
-		UnidadeVO unidadeEncontrada = findById(id);
+	
+	@Transactional
+	public void delete(Long id) {		
+		repository.delete(id);
+		/*UnidadeVO unidadeEncontrada = findById(id);
 		unidadeEncontrada.setStatus(Status.DESATIVADA);
-		repository.save(DozerConverter.parseObject(unidadeEncontrada, Unidade.class));
+		repository.save(DozerConverter.parseObject(unidadeEncontrada, Unidade.class));*/
 	}
 
 	private UnidadeVO getUpdateEntity(UnidadeVO unidadeVO, UnidadeVO unidadeEncontradaVO) {
