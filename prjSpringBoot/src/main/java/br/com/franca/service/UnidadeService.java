@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.franca.domain.Unidade;
@@ -56,5 +58,11 @@ public class UnidadeService {
 		unidadeEncontradaVO.setStatus(unidadeVO.getStatus());
 
 		return unidadeEncontradaVO;
+	}
+
+	public List<UnidadeVO> findAll(Pageable pageable) {
+		Page<Unidade> pagesUnidade = repository.findAll(pageable);
+		return DozerConverter.parseListObjects(pagesUnidade.getContent(), UnidadeVO.class);
+		
 	}
 }
