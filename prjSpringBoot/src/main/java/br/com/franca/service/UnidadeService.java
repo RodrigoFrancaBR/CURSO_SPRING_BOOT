@@ -60,9 +60,12 @@ public class UnidadeService {
 		return unidadeEncontradaVO;
 	}
 
-	public List<UnidadeVO> findAll(Pageable pageable) {
+	public Page<UnidadeVO> findAll(Pageable pageable) {
 		Page<Unidade> pagesUnidade = repository.findAll(pageable);
-		return DozerConverter.parseListObjects(pagesUnidade.getContent(), UnidadeVO.class);
-		
+		return pagesUnidade.map(this::obterUnidadeVO);
+	}
+	
+	private UnidadeVO obterUnidadeVO(Unidade unidade){
+		return DozerConverter.parseObject(unidade, UnidadeVO.class);
 	}
 }

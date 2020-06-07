@@ -1,8 +1,9 @@
 package br.com.franca.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,32 +31,32 @@ public class TurmaService {
 	public TurmaVO findById(Long id) {
 		Turma turma = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));		
-		return obterTurmaVO(turma);
+		return convertTurmaToVo(turma);
 	}
 
 	public List<TurmaVO> findAll() {
 		List<Turma> listaDeTurmas = repository.findAll();
-		return obterListaDeTurmaVO(listaDeTurmas);
+		return listaDeTurmas.parallelStream().map(this::convertTurmaToVo).collect(Collectors.toList());
 	}
 
 	public TurmaVO save(TurmaVO turmaVO) {
 		UnidadeVO unidadeEncontradaVO = unidadeService.findById(turmaVO.getUnidadeVO().getKey());
 		turmaVO.setUnidadeVO(unidadeEncontradaVO);
-		Turma turma = obterTurma(turmaVO);
-		return obterTurmaVO(repository.save(turma));
+		Turma turma = convertVoToTurma(turmaVO);
+		return convertTurmaToVo(repository.save(turma));
 	}	
 
 	public TurmaVO update(TurmaVO turmaVO) {
 		TurmaVO turmaEncontradaVO = findById(turmaVO.getKey());
 		TurmaVO turmaAtualizadaVO = getUpdateEntity(turmaVO, turmaEncontradaVO);
-		Turma turma = obterTurma(turmaAtualizadaVO);
-		return obterTurmaVO(repository.save(turma));		
+		Turma turma = convertVoToTurma(turmaAtualizadaVO);
+		return convertTurmaToVo(repository.save(turma));		
 	}
 
 	public void delete(Long id) {
 		TurmaVO turmaEncontradaVO = findById(id);
 		turmaEncontradaVO.setStatus(Status.DESATIVADA);		
-		repository.save(obterTurma(turmaEncontradaVO));
+		repository.save(convertVoToTurma(turmaEncontradaVO));
 	}
 
 	private TurmaVO getUpdateEntity(TurmaVO turmaVO, TurmaVO turmaEncontradaVO) {
@@ -64,7 +65,7 @@ public class TurmaService {
 		return turmaEncontradaVO;
 	}
 	
-	private Turma obterTurma(TurmaVO turmaVO) {
+	private Turma convertVoToTurma(TurmaVO turmaVO) {
 		Turma turma = null;
 		turma = DozerConverter.parseObject(turmaVO, Turma.class);
 		Unidade unidade = DozerConverter.parseObject(turmaVO.getUnidadeVO(), Unidade.class);
@@ -72,7 +73,7 @@ public class TurmaService {
 		return turma;
 	}
 
-	private TurmaVO obterTurmaVO(Turma turma) {
+	private TurmaVO convertTurmaToVo(Turma turma) {		
 		TurmaVO turmaVO = null;
 		UnidadeVO unidadeVO = DozerConverter.parseObject(turma.getUnidade(), UnidadeVO.class);
 		turmaVO = DozerConverter.parseObject(turma, TurmaVO.class);
@@ -80,7 +81,7 @@ public class TurmaService {
 		return turmaVO;
 	}
 
-	private List<TurmaVO> obterListaDeTurmaVO(List<Turma> turmas) {
+/*	private List<TurmaVO> obterListaDeTurmaVO(List<Turma> turmas) {
 		List<TurmaVO> listaDeTurmasVO = new ArrayList<>();
 		for (Turma turma : turmas) {
 			UnidadeVO unidadeVO = DozerConverter.parseObject(turma.getUnidade(), UnidadeVO.class);
@@ -89,6 +90,6 @@ public class TurmaService {
 			listaDeTurmasVO.add(turmaVO);
 		}
 		return listaDeTurmasVO; 
-	}
+	}*/
 
 }
