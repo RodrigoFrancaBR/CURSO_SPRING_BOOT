@@ -68,4 +68,9 @@ public class UnidadeService {
 	private UnidadeVO obterUnidadeVO(Unidade unidade){
 		return DozerConverter.parseObject(unidade, UnidadeVO.class);
 	}
+
+	public Page<UnidadeVO> findAllPageablePorNome(String nome, Pageable pageable) {
+		Page<Unidade> pagesUnidade = repository.findAllPageablePorNome(nome, pageable);
+		return pagesUnidade.map(this::obterUnidadeVO);
+	}
 }
