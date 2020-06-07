@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.franca.config.FileStorageConfig;
+import br.com.franca.exception.FileNotFoundException;
 import br.com.franca.exception.FileStorageException;
 
 @Service
@@ -50,5 +51,19 @@ public class FileStorageService {
 		} catch (Exception e) {
 			throw new FileStorageException("Could not store file " + fileName + ". Please try again!", e);
 		}
+	}
+	public Resource loadFileAsResource(String fileName) {
+		try {
+			Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+			Resource resource = new UrlResource(filePath.toUri());
+			if(resource.exists()) {
+				return resource;
+			} else {
+				throw new FileNotFoundException("File not found " + fileName);
+			}
+		} catch (Exception e) {
+			throw new FileNotFoundException("File not found " + fileName, e);
+		}
+		
 	}
 }
