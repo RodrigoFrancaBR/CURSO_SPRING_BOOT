@@ -85,9 +85,20 @@
 					"name": "findById",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "{{content_type}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "http://localhost:8080/unidades/1?Authorization=Bearer {{bearer_token}}&Content-Type={{content_type}}",
+							"raw": "http://localhost:8080/unidades/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -96,16 +107,6 @@
 							"path": [
 								"unidades",
 								"1"
-							],
-							"query": [
-								{
-									"key": "Authorization",
-									"value": "Bearer {{bearer_token}}"
-								},
-								{
-									"key": "Content-Type",
-									"value": "{{content_type}}"
-								}
 							]
 						}
 					},
@@ -169,14 +170,106 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/unidades",
+							"raw": "http://localhost:8080/unidades/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"unidades"
+								"unidades",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllPageablePorNome",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "{{content_type}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/unidades/pageable/Altenwerth?page=0&limit=10&direction=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidades",
+								"pageable",
+								"Altenwerth"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "direction",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllPageable",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "{{content_type}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/unidades/pageable?page=0&limit=10&direction=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unidades",
+								"pageable"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "direction",
+									"value": "asc"
+								}
 							]
 						}
 					},
@@ -641,6 +734,126 @@
 					"path": [
 						"auth",
 						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadFile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "{{content_type}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Usuario/Pictures/2 - Copia.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/file/uploadFile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file",
+						"uploadFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadMultipleFiles",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "{{content_type}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/C:/Users/Usuario/Pictures/bombeiro.pdf",
+								"/C:/Users/Usuario/Pictures/cedae_.pdf",
+								"/C:/Users/Usuario/Pictures/perfil_rodrigo.jpg",
+								"/C:/Users/Usuario/Pictures/perfilbruna.jpg",
+								"/C:/Users/Usuario/Pictures/Teste-Nivel-de-Estresse.docx"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/file/uploadMultipleFiles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file",
+						"uploadMultipleFiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "downloadFile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "{{content_type}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/file/downloadFile/2%20-%20Copia.jpg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"file",
+						"downloadFile",
+						"2%20-%20Copia.jpg"
 					]
 				}
 			},
