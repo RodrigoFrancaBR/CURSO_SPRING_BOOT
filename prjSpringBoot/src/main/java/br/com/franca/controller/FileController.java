@@ -1,5 +1,15 @@
 package br.com.franca.controller;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,5 +41,39 @@ public class FileController {
 		
 		return new UploadFileResponseVO(fileName, fileDownloadUri, file.getContentType(), file.getSize());
 	}
+	
+	@PostMapping("/uploadMultipleFiles")
+	public List<UploadFileResponseVO> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+		// Arrays.asList(files).forEach(this :: uploadFile);
+		return Arrays.asList(files)
+				.stream()
+				.map(file -> uploadFile(file))
+				.collect(Collectors.toList());
+	}
+	
+	@GetMapping("/downloadFile/{fileName:.+}")
+	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+		
+		Resource resource = fileStorageService.loadFileAsResource(fileName);
+		
+		String contentType = null;
+		
+		try {
+			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+		} catch (Exception e) {
+			logger.info("Could not determine file type!");
+		}
+		
+		if (contentType == null) {
+			contentType = "application/octet-stream";
+		}
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.parseMediaType(contentType))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+				.body(resource);
+				
+	}
+	
 
 }
