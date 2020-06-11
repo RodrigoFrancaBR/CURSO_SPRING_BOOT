@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 
 import br.com.franca.domain.enun.SituacaoParcela;
 
-@Table(name = "TB_PARCELA")
+@Table(name = "tb_parcela")
 @Entity
 public class Parcela implements Serializable {
 

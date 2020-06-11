@@ -13,7 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Entity
 // definindo um index name unique: "nome_endereco_UK" para as colunas: nome,
 // endereco
-@Table(name = "TB_PERMISSION")
+@Table(name = "tb_permission")
 public class Permission implements Serializable, GrantedAuthority {
 
 	private static final long serialVersionUID = -6012247680092675064L;

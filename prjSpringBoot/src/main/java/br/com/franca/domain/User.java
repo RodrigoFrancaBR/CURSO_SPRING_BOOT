@@ -23,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 // definindo um index name unique: "nome_endereco_UK" para as colunas: nome,
 // endereco
-@Table(name = "TB_USERS", uniqueConstraints = @UniqueConstraint(columnNames = { "USER_NAME" }, name = "UK_USER_NAME"))
+@Table(name = "tb_users", uniqueConstraints = @UniqueConstraint(columnNames = { "USER_NAME" }, name = "UK_USER_NAME"))
 public class User implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = -8982293443009236457L;

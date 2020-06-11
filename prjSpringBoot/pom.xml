@@ -92,15 +92,19 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
 			<!-- permite rodar o flyway sem subir o spring boot -->
+			
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
 				<configuration>
-					<url>jdbc:mysql://localhost:3307/db_curso?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
+				<url>jdbc:mysql://192.168.99.100:3306/db_curso?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
+					<!-- <url>jdbc:mysql://localhost:3307/db_curso?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url> -->
 					<user>root</user>
 					<password>root</password>
 				</configuration>
+				
 				<dependencies>
 					<dependency>
 						<groupId>mysql</groupId>

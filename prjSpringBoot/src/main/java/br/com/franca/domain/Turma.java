@@ -20,7 +20,7 @@ import br.com.franca.domain.enun.Status;
 // definindo um index name unique: "nome_unidade_id_UK" para as colunas: nome,
 // unidade_id
 // definindo um index name: FK_tb_turma_tb_unidade_UK para fk unidade_id
-@Table(name = "TB_TURMA", uniqueConstraints = @UniqueConstraint(columnNames = { "nome",
+@Table(name = "tb_turma", uniqueConstraints = @UniqueConstraint(columnNames = { "nome",
 		"unidade_id" }, name = "nome_unidade_id_UK"), indexes = @Index(columnList = "unidade_id", name = "FK_tb_turma_tb_unidade_UK"))
 public class Turma implements Serializable {
 

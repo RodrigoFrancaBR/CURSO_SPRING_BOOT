@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import br.com.franca.domain.enun.Sexo;
 import br.com.franca.domain.enun.SituacaoAluno;
 
-@Table(name = "TB_ALUNO")
+@Table(name = "tb_aluno")
 @Entity
 public class Aluno implements Serializable {
 
