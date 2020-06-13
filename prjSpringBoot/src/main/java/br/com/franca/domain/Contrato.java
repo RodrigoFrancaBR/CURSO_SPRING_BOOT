@@ -21,7 +21,7 @@ import javax.persistence.Transient;
 import br.com.franca.domain.enun.FormaPagamento;
 import br.com.franca.domain.enun.SituacaoMatricula;
 
-@Table(name = "TB_CONTRATO")
+@Table(name = "tb_contrato")
 @Entity
 public class Contrato implements Serializable {
 

@@ -1,3 +1,5 @@
+USE db_curso;
+
 CREATE TABLE IF NOT EXISTS `db_curso`.`tb_contrato` (
   `ID` BIGINT NOT NULL AUTO_INCREMENT,
   `TURMA_ID` BIGINT NOT NULL,
@@ -16,13 +18,19 @@ CREATE TABLE IF NOT EXISTS `db_curso`.`tb_contrato` (
   PRIMARY KEY (`ID`),
   UNIQUE INDEX `TURMA_ID_ALUNO_ID_UK` (`ALUNO_ID` ASC, `TURMA_ID` ASC) COMMENT 'O ALUNO pode se repetir desde que seja em TURMAs diferentes',
   UNIQUE INDEX `MATRICULA_UK` (`MATRICULA` ASC) ,
-  CONSTRAINT `FK_tb_turma_ALUNO_tb_turma`
+  CONSTRAINT `FK_TB_TURMA_ALUNO_TB_TURMA`
     FOREIGN KEY (`TURMA_ID`)
     REFERENCES `db_curso`.`tb_turma` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `FK_tb_turma_tb_aluno_tb_aluno`
+  CONSTRAINT `FK_TB_TURMA_TB_ALUNO_TB_ALUNO`
     FOREIGN KEY (`ALUNO_ID`)
     REFERENCES `db_curso`.`tb_aluno` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+
+SET character_set_client = utf8;
+SET character_set_connection = utf8;
+SET character_set_results = utf8;
+SET collation_connection = utf8_general_ci;

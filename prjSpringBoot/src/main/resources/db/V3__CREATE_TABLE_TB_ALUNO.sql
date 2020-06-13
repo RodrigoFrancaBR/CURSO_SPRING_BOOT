@@ -1,3 +1,5 @@
+USE db_curso;
+
 CREATE TABLE IF NOT EXISTS `db_curso`.`tb_aluno` (
   `ID` BIGINT NOT NULL AUTO_INCREMENT,
   `NOME` VARCHAR(40) NOT NULL,
@@ -21,3 +23,10 @@ CREATE TABLE IF NOT EXISTS `db_curso`.`tb_aluno` (
   PRIMARY KEY (`ID`),
   UNIQUE INDEX `CPF_UNIQUE` (`CPF` ASC),
   UNIQUE INDEX `RG_UNIQUE` (`RG` ASC));
+
+SET character_set_client = utf8;
+SET character_set_connection = utf8;
+SET character_set_results = utf8;
+SET collation_connection = utf8_general_ci;
+
+INSERT INTO `db_curso`.`tb_aluno`(`ID`, `NOME`, `CPF`, `RG`, `ORG_EXP`, `UF_RG`, `DT_NASCI`, `SEXO`, `CELULAR`, `RESIDENCIAL`, `EMAIL`, `CEP`, `ENDERECO`, `BAIRRO`, `CIDADE`, `ESTADO`, `PAI`, `MAE`, `SIT_ALUNO`) VALUES ('1', 'ALUNO 1', '99988877761', '998887776', 'DETRAN', 'RJ', '1985-09-03', 'MASCULINO', '99877665544', '9988776655', 'ALUNO@GMAIL.COM', '99888777', 'RUA C1', 'CASCADURA', 'RIO DE JANEIRO', 'RJ', 'PAI DE ALUNO 2', 'MAE DE ALUNO 2', 'ATIVO');
