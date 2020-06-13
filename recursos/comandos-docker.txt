@@ -1,0 +1,32 @@
+executar uma image run
+docker images
+docker ps  lista todos os containers em execução
+docker ps -a  lista todos os containerontainers em execução ou não
+docker run -it ubuntu
+docker container rm 
+
+docker exec -it mysql-8.0 /bin/bash 
+roda um novo container caso não exista na máquina baixa uma imagem e roda
+
+docker run --name mysql-8.0 -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql:8.0.20
+
+docker run --name mysql-8.0-db-curso -e MYSQL_DATABASE=db_curso -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d db_curso
+
+docker image build -t hello-java:latest . 
+
+docker image build -t mysql-8.0-db-curso:latest . 
+
+docker container run --name jdk-8-curso -it openjdk:8
+
+$ docker exec -it 61991d66a331 /bin/bash
+
+$ docker exec -it 61991d66a331 java -version
+
+mysql-8-db-curso
+mysql-8-db-curso-container
+
+$ docker image build -t mysql-8-db-curso:latest .  
+
+docker run --name mysql-8-db-curso-container -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql-8-db-curso
+
+docker run --name mysql-8.0-db-curso-container -e MYSQL_DATABASE=db_curso -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql-8.0-db-curso
