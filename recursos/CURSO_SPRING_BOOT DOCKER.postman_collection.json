@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "7656da3c-f219-4890-9554-9d4fe70d8083",
-		"name": "CURSO_SPRING_BOOT",
+		"_postman_id": "d3995925-cad7-4230-bc36-91c9b1e5e575",
+		"name": "CURSO_SPRING_BOOT DOCKER",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -170,10 +170,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/unidades/",
-							"protocol": "http",
+							"raw": "192.168.99.100:8080/unidades/",
 							"host": [
-								"localhost"
+								"192",
+								"168",
+								"99",
+								"100"
 							],
 							"port": "8080",
 							"path": [
@@ -689,7 +691,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "20d01a70-70b3-4bae-ac79-8d8d61e7ea03",
+						"id": "4b51d088-048b-471f-bf51-093d3e6ede31",
 						"exec": [
 							"if (responseCode.code >= 200 && responseCode.code <= 299) {\r",
 							"    var jsonData = JSON.parse(responseBody);\r",
@@ -722,9 +724,12 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/auth/signin",
+					"raw": "192.168.99.100:8080/auth/signin",
 					"host": [
-						"localhost"
+						"192",
+						"168",
+						"99",
+						"100"
 					],
 					"port": "8080",
 					"path": [
