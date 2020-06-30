@@ -30,3 +30,5 @@ $ docker image build -t mysql-8-db-curso:latest .
 docker run --name mysql-8-db-curso-container -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql-8-db-curso
 
 docker run --name mysql-8.0-db-curso-container -e MYSQL_DATABASE=db_curso -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql-8.0-db-curso
+
+docker run -p 8080:8080 springio/gs-spring-boot-docker

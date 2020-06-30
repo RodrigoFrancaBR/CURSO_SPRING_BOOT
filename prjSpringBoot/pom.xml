@@ -54,10 +54,8 @@
 		</dependency>
 
 		<!-- for Migrations support -->
-		<!-- <dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.flywaydb</groupId> <artifactId>flyway-core</artifactId> 
+			</dependency> -->
 
 		<!-- for HATEOAS support -->
 		<dependency>
@@ -84,6 +82,12 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 
+		<!-- H2 Database -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -92,35 +96,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+
 			<!-- permite rodar o flyway sem subir o spring boot -->
-			
-			<!-- <plugin>
-			
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<configuration>
-					<url>jdbc:mysql://192.168.99.100:3306/db_curso?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
-				 	<url>jdbc:mysql://localhost:3307/db_curso?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url>
-					<user>root</user>
-					<password>root</password>
-				</configuration> 
-				
-				<dependencies>
-					<dependency>
-						<groupId>mysql</groupId>
-						<artifactId>mysql-connector-java</artifactId>
-						<version>${mysql.version}</version>
-						<exclusions>
-							<exclusion>
-								O Simple Logging Facade para Java fornece uma API de log Java por meio de um padrão de fachada simples
-								<artifactId>slf4j-api</artifactId>
-								<groupId>org.slf4j</groupId>
-							</exclusion>
-						</exclusions>
-					</dependency>
-				</dependencies>
-			</plugin> -->
+
+			<!-- <plugin> <groupId>org.flywaydb</groupId> <artifactId>flyway-maven-plugin</artifactId> 
+				<configuration> <url>jdbc:mysql://192.168.99.100:3306/db_curso?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url> 
+				<url>jdbc:mysql://localhost:3307/db_curso?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</url> 
+				<user>root</user> <password>root</password> </configuration> <dependencies> 
+				<dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
+				<version>${mysql.version}</version> <exclusions> <exclusion> O Simple Logging 
+				Facade para Java fornece uma API de log Java por meio de um padrão de fachada 
+				simples <artifactId>slf4j-api</artifactId> <groupId>org.slf4j</groupId> </exclusion> 
+				</exclusions> </dependency> </dependencies> </plugin> -->
 		</plugins>
 	</build>
 </project>

@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  db:
+    image: mysql
+    container_name: mysql-8.0-db-curso
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: root            
+      MYSQL_DATABASE: db_curso
+    ports:
+      - "3306:3306"
+    volumes:
+        - ./prjSpringBoot/src/main/resources/db/:/docker-entrypoint-initdb.d
+        - ./prjSpringBoot/src/main/resources/db/data/:/var/lib/mysql
+    restart: always
+  maven:
+    image: rfrancacosta/curso-spring-boot:latest
+    container_name: curso-spring-boot-container
+    volumes:
+      - ./prjSpringBoot/target/prjSpringBoot-0.0.1-SNAPSHOT.jar:/prjSpringBoot
+      - "c:/apache-maven-3.6.3/repo:/root/repo"
+    working_dir: /prjSpringBoot
+    ports:
+      - "8080:8080"
+    command: mvn clean spring-boot:run
+    restart: always
+    depends_on:
+      - db
+    
